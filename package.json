@@ -14,6 +14,7 @@
     "tsc": "tsc"
   },
   "devDependencies": {
+    "@editorjs/editorjs": "^2.18.0",
     "license-checker": "^25.0.1",
     "prettier": "^2.0.5",
     "typescript": "^4.0.2"
