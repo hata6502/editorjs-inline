@@ -1,5 +1,6 @@
 .cache
 .DS_Store
 coverage
+dist/src
 node_modules
 yarn-error.log

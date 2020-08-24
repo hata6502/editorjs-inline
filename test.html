@@ -6,10 +6,16 @@
   </head>
 
   <body>
+    <div id="editorjs"></div>
     <script>
-      const editorJS = new EditorJS({
+      new EditorJS({
         tools: {
-          EditorJSInline,
+          editorJSInline: {
+            class: EditorJSInline,
+            config: {
+              EditorJS,
+            },
+          },
         },
       });
     </script>
