@@ -1,17 +1,10 @@
-import type EditorJS from '@editorjs/editorjs';
+import EditorJS from 'editorjs-for-editorjs-inline';
 import type {
   InlineTool,
   InlineToolConstructorOptions,
-} from '@editorjs/editorjs';
-
-export interface EditorJSInlineConfig {
-  EditorJS: typeof EditorJS;
-}
-
-interface EditorJSInlineConstructorOptions
-  extends InlineToolConstructorOptions {
-  config: EditorJSInlineConfig | object;
-}
+} from 'editorjs-for-editorjs-inline';
+// @ts-expect-error
+import List from '@editorjs/list';
 
 class EditorJSInline implements InlineTool {
   static get isInline() {
@@ -27,27 +20,26 @@ class EditorJSInline implements InlineTool {
     return 'EditorJS';
   }
 
-  private EditorJS!: typeof EditorJS;
-
-  constructor({ api, config }: EditorJSInlineConstructorOptions) {
-    if (!('EditorJS' in config)) {
-      return;
-    }
-
-    this.EditorJS = config.EditorJS;
+  constructor({ api, config }: InlineToolConstructorOptions) {
   }
 
-  /*get shortcut() {
-    return 'CMD+M';
-  }*/
+  get shortcut() {
+    return 'CMD+E';
+  }
 
   surround(range: Range) {
     const holder = document.createElement('span');
 
+    holder.style.backgroundColor = '#eeeeee';
+    holder.style.display = 'inline-block';
     range.insertNode(holder);
 
-    new this.EditorJS({
+    new EditorJS({
       holder,
+      minHeight: 16,
+      tools: {
+        list: List
+      },
     });
   }
 

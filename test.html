@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="node_modules/@editorjs/editorjs/dist/editor.js"></script>
+    <meta charset="utf-8" />
     <script src="dist/index.js"></script>
+    <script src="node_modules/@editorjs/editorjs/dist/editor.js"></script>
+    <script src="node_modules/@editorjs/list/dist/bundle.js"></script>
   </head>
 
   <body>
@@ -10,12 +12,8 @@
     <script>
       new EditorJS({
         tools: {
-          editorJSInline: {
-            class: EditorJSInline,
-            config: {
-              EditorJS,
-            },
-          },
+          editorJSInline: EditorJSInline,
+          list: List
         },
       });
     </script>
