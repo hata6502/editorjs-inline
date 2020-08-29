@@ -1,46 +1,58 @@
-import EditorJS from 'editorjs-for-editorjs-inline';
 import type {
   InlineTool,
   InlineToolConstructorOptions,
 } from 'editorjs-for-editorjs-inline';
-// @ts-expect-error
-import List from '@editorjs/list';
+// @ts-ignore
+import iframeWorker from '../dist/iframeWorker.js';
 
 class EditorJSInline implements InlineTool {
   static get isInline() {
     return true;
   }
 
-  /*static get sanitize() {
+  static get sanitize() {
     return {
+      //span: (element: HTMLSpanElement) => !element.classList.contains('editorjs-inline')
     };
-  }*/
+  }
 
   static get title() {
     return 'EditorJS';
   }
 
-  constructor({ api, config }: InlineToolConstructorOptions) {
-  }
+  constructor({ api, config }: InlineToolConstructorOptions) {}
 
   get shortcut() {
     return 'CMD+E';
   }
 
   surround(range: Range) {
-    const holder = document.createElement('span');
+    const span = document.createElement('span');
 
-    holder.style.backgroundColor = '#eeeeee';
-    holder.style.display = 'inline-block';
-    range.insertNode(holder);
+    //span.classList.add('editorjs-inline');
+    span.style.border = '1px solid #eeeeee';
+    span.style.display = 'inline-block';
 
-    new EditorJS({
-      holder,
-      minHeight: 16,
-      tools: {
-        list: List
-      },
-    });
+    const iframe = document.createElement('iframe');
+
+    iframe.srcdoc = `
+      <!doctype html>
+      <html>
+        <head></head>
+        <body>
+          <script>${iframeWorker}</script>
+        </body>
+      </html>
+    `;
+
+    /*iframe.addEventListener('load', () => {
+      if (!iframe.contentDocument){
+        throw new Error("Couldn't create iframe for editorjs-inline. ");
+      }  
+    });*/
+
+    span.appendChild(iframe);
+    range.insertNode(span);
   }
 
   checkState() {
