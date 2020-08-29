@@ -1,4 +1,4 @@
-import EditorJS from 'editorjs-for-editorjs-inline';
+import EditorJS from '@editorjs/editorjs';
 // @ts-expect-error
 import List from '@editorjs/list';
 

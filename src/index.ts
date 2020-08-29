@@ -1,7 +1,7 @@
 import type {
   InlineTool,
   InlineToolConstructorOptions,
-} from 'editorjs-for-editorjs-inline';
+} from '@editorjs/editorjs';
 // @ts-ignore
 import iframeWorker from '../dist/iframeWorker.js';
 
