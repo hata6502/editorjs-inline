@@ -1,4 +1,10 @@
+import type { OutputData } from '@editorjs/editorjs';
 interface IframeWindow extends Window {
-    id: string;
+    editorJSInline: {
+        load: (arg: {
+            id: string;
+            data?: OutputData;
+        }) => void;
+    };
 }
 export default IframeWindow;

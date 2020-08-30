@@ -12,7 +12,21 @@
     <button id="button" type="button">Save</button>
     <div id="output-data"></div>
     <script>
+      const data = {
+        time: 1598789264099,
+        blocks: [
+          {
+            type: 'paragraph',
+            data: {
+              text:
+                'test<span data-editorjs-inline="{&quot;time&quot;:1598789261485,&quot;blocks&quot;:[{&quot;type&quot;:&quot;list&quot;,&quot;data&quot;:{&quot;style&quot;:&quot;ordered&quot;,&quot;items&quot;:[&quot;editorjs-inline&quot;]}}],&quot;version&quot;:&quot;2.18.0&quot;}"></span>test',
+            },
+          },
+        ],
+        version: '2.18.0',
+      };
       const editorJS = new EditorJS({
+        data,
         tools: {
           editorJSInline: EditorJSInline,
           list: List,

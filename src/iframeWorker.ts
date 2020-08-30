@@ -6,29 +6,34 @@ import type { SavedMessageData, SavingMessageData } from './MessageData';
 
 declare const window: IframeWindow;
 
-const editorJS = new EditorJS({
-  holder: document.body,
-  minHeight: 0,
-  tools: {
-    list: List,
+window.editorJSInline = {
+  load: ({ id, data }) => {
+    const editorJS = new EditorJS({
+      data,
+      holder: document.body,
+      minHeight: 0,
+      tools: {
+        list: List,
+      },
+      onChange: async () => {
+        const savingMessageData: SavingMessageData = {
+          editorJSInline: true,
+          id,
+          type: 'saving',
+        };
+
+        window.parent.postMessage(savingMessageData, '*');
+
+        const outputData = await editorJS.save();
+        const savedMessageData: SavedMessageData = {
+          editorJSInline: true,
+          id,
+          type: 'saved',
+          outputData,
+        };
+
+        window.parent.postMessage(savedMessageData, '*');
+      },
+    });
   },
-  onChange: async () => {
-    const savingMessageData: SavingMessageData = {
-      editorJSInline: true,
-      id: window.id,
-      type: 'saving',
-    };
-
-    window.parent.postMessage(savingMessageData, '*');
-
-    const outputData = await editorJS.save();
-    const savedMessageData: SavedMessageData = {
-      editorJSInline: true,
-      id: window.id,
-      type: 'saved',
-      outputData,
-    };
-
-    window.parent.postMessage(savedMessageData, '*');
-  },
-});
+};
