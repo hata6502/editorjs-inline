@@ -13,6 +13,7 @@ declare class EditorJSInline implements InlineTool {
     };
     static get title(): string;
     private static createSpan;
+    private api;
     constructor({ api, config }: EditorJSInlineConstructorOptions);
     get shortcut(): string;
     surround(range: Range): void;
