@@ -70,6 +70,7 @@ class EditorJSInline implements InlineTool {
 
     const iframe = document.createElement('iframe');
 
+    iframe.style.border = 'none';
     iframe.srcdoc = `
       <!doctype html>
       <html>
