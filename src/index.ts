@@ -35,7 +35,7 @@ class EditorJSInline implements InlineTool {
     return 'EditorJS';
   }
 
-  private static createSpan({ data = { blocks: [] } }: { data?: OutputData }) {
+  private static createSpan({ data }: { data: OutputData }) {
     const id = uuidv4();
     const span = document.createElement('span');
 
@@ -120,7 +120,22 @@ class EditorJSInline implements InlineTool {
   }
 
   surround(range: Range) {
-    range.insertNode(EditorJSInline.createSpan({}));
+    const text: string = range.extractContents().textContent ?? '';
+
+    range.insertNode(
+      EditorJSInline.createSpan({
+        data: {
+          blocks: [
+            {
+              type: 'paragraph',
+              data: {
+                text,
+              },
+            },
+          ],
+        },
+      })
+    );
   }
 
   checkState() {
