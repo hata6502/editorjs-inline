@@ -2,12 +2,18 @@ import EditorJS from '@editorjs/editorjs';
 // @ts-expect-error
 import List from '@editorjs/list';
 import type IframeWindow from './IframeWindow';
-import type { SavedMessageData, SavingMessageData } from './MessageData';
+import type { HeightChangedMessageData, SavedMessageData } from './MessageData';
 
 declare const window: IframeWindow;
 
 window.editorJSInline = {
   load: ({ id, data }) => {
+    const heightChangedMessageData: HeightChangedMessageData = {
+      editorJSInline: true,
+      id,
+      type: 'heightChanged',
+    };
+
     const editorJS = new EditorJS({
       data,
       holder: document.body,
@@ -16,13 +22,7 @@ window.editorJSInline = {
         list: List,
       },
       onChange: async () => {
-        const savingMessageData: SavingMessageData = {
-          editorJSInline: true,
-          id,
-          type: 'saving',
-        };
-
-        window.parent.postMessage(savingMessageData, '*');
+        window.parent.postMessage(heightChangedMessageData, '*');
 
         const outputData = await editorJS.save();
         const savedMessageData: SavedMessageData = {
@@ -33,6 +33,9 @@ window.editorJSInline = {
         };
 
         window.parent.postMessage(savedMessageData, '*');
+      },
+      onReady: () => {
+        window.parent.postMessage(heightChangedMessageData, '*');
       },
     });
   },

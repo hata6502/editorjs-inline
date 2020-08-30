@@ -48,6 +48,7 @@ class EditorJSInline implements InlineTool {
 
     const iframe = document.createElement('iframe');
 
+    iframe.scrolling = 'no';
     iframe.style.border = 'none';
     iframe.srcdoc = `
       <!doctype html>
@@ -78,28 +79,36 @@ class EditorJSInline implements InlineTool {
     window.addEventListener(
       'message',
       (event) => {
-        const data: MessageData = event.data;
+        const messageData: MessageData = event.data;
 
-        if (typeof data !== 'object' || !('editorJSInline' in data)) {
+        if (
+          typeof messageData !== 'object' ||
+          !('editorJSInline' in messageData)
+        ) {
           return;
         }
 
+        const element = document.querySelector(
+          `span[data-editorjs-inline-id="${messageData.id}"]`
+        );
+        const iframe = element?.querySelector('iframe');
+
+        if (!element || !iframe) {
+          throw new Error('editorjs-inline element is not found. ');
+        }
+
+        const span = element as HTMLSpanElement;
+
         ({
-          saved: (data: SavedMessageData) => {
-            const element = document.querySelector(
-              `span[data-editorjs-inline-id="${data.id}"]`
-            );
-
-            if (!element) {
-              throw new Error('editorjs-inline element is not found. ');
-            }
-
-            const span = element as HTMLSpanElement;
-
-            span.dataset.editorjsInline = JSON.stringify(data.outputData);
+          heightChanged: () => {
+            iframe.style.height = `${iframe.contentDocument?.body.scrollHeight}px`;
           },
-          saving: () => {},
-        }[data.type](data as never));
+          saved: () => {
+            const { outputData } = messageData as SavedMessageData;
+
+            span.dataset.editorjsInline = JSON.stringify(outputData);
+          },
+        }[messageData.type]());
       },
       false
     );

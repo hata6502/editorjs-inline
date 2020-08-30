@@ -5,15 +5,19 @@ interface EditorJSInlineMessageData {
   id: string;
 }
 
+export interface HeightChangedMessageData extends EditorJSInlineMessageData {
+  type: 'heightChanged';
+}
+
 export interface SavedMessageData extends EditorJSInlineMessageData {
   type: 'saved';
   outputData: OutputData;
 }
 
-export interface SavingMessageData extends EditorJSInlineMessageData {
-  type: 'saving';
-}
-
-type MessageData = SavedMessageData | SavingMessageData | object | undefined;
+type MessageData =
+  | HeightChangedMessageData
+  | SavedMessageData
+  | object
+  | undefined;
 
 export default MessageData;
