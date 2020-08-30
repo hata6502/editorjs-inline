@@ -34,16 +34,12 @@ class EditorJSInline implements InlineTool {
     return 'EditorJS';
   }
 
-  private static createSpan({ data }: { data?: OutputData }) {
+  private static createSpan({ data = { blocks: [] } }: { data?: OutputData }) {
     const id = uuidv4();
     const span = document.createElement('span');
 
     span.contentEditable = 'false';
-
-    if (data) {
-      span.dataset.editorjsInline = JSON.stringify(data);
-    }
-
+    span.dataset.editorjsInline = JSON.stringify(data);
     span.dataset.editorjsInlineId = id;
 
     const iframe = document.createElement('iframe');

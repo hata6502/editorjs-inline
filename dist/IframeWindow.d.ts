@@ -3,7 +3,7 @@ interface IframeWindow extends Window {
     editorJSInline: {
         load: (arg: {
             id: string;
-            data?: OutputData;
+            data: OutputData;
         }) => void;
     };
 }
