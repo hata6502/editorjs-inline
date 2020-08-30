@@ -11,4 +11,7 @@ existing block tools can be reused as inline tool.
 
 **Note: This is an experimental inline tool 🔬**
 
-![ezgif com-video-to-gif](https://user-images.githubusercontent.com/7702653/91636882-1981d600-ea3f-11ea-950c-c36603a3ec30.gif)
+## ✨ Demo
+
+![Demo](https://user-images.githubusercontent.com/7702653/91664324-5f1acd80-eb29-11ea-8074-b149dcd6a426.gif)<br>
+[Live demo](https://hata6502.github.io/editorjs-inline/)
