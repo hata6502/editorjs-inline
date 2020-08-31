@@ -177,10 +177,15 @@ class EditorJSInline implements InlineTool {
     iframe.scrolling = 'no';
     iframe.style.border = 'none';
     iframe.style.width = '100%';
+
+    const styleHTML = Array.from(document.querySelectorAll('style'))
+      .map((style) => style.outerHTML)
+      .join('');
+
     iframe.srcdoc = `
       <!doctype html>
       <html>
-        <head></head>
+        <head>${styleHTML}</head>
         <body>
           <script>${iframeWorker}</script>
         </body>
