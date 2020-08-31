@@ -176,6 +176,7 @@ class EditorJSInline implements InlineTool {
 
     iframe.scrolling = 'no';
     iframe.style.border = 'none';
+    iframe.style.width = '100%';
     iframe.srcdoc = `
       <!doctype html>
       <html>
