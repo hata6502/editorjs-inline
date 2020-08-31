@@ -1,5 +1,6 @@
 import type {
   API,
+  EditorConfig,
   InlineTool,
   InlineToolConstructorOptions,
   OutputData,
@@ -11,7 +12,9 @@ import type { SavedMessageData } from './MessageData';
 // @ts-ignore
 import iframeWorker from '../dist/iframeWorker.js';
 
-export interface EditorJSInlineConfig {}
+export interface EditorJSInlineConfig {
+  editorConfig: Omit<EditorConfig, 'data' | 'holder'>;
+}
 
 interface EditorJSInlineConstructorOptions
   extends InlineToolConstructorOptions {
@@ -35,47 +38,17 @@ class EditorJSInline implements InlineTool {
     return 'EditorJS';
   }
 
-  private static createSpan({ data }: { data: OutputData }) {
-    const id = uuidv4();
-    const span = document.createElement('span');
-
-    span.contentEditable = 'false';
-    span.dataset.editorjsInline = JSON.stringify(data);
-    span.dataset.editorjsInlineId = id;
-
-    const iframe = document.createElement('iframe');
-
-    iframe.scrolling = 'no';
-    iframe.style.border = 'none';
-    iframe.srcdoc = `
-      <!doctype html>
-      <html>
-        <head></head>
-        <body>
-          <script>${iframeWorker}</script>
-        </body>
-      </html>
-    `;
-
-    iframe.addEventListener('load', () => {
-      if (!iframe.contentWindow) {
-        throw new Error("Couldn't create iframe for editorjs-inline. ");
-      }
-
-      const iframeWorkerWindow = iframe.contentWindow as IframeWindow;
-
-      iframeWorkerWindow.editorJSInline.load({ id, data });
-    });
-
-    span.appendChild(iframe);
-
-    return span;
-  }
-
   private api: API;
+  private config!: EditorJSInlineConfig;
 
   constructor({ api, config }: EditorJSInlineConstructorOptions) {
     this.api = api;
+
+    if (!('editorConfig' in config)) {
+      return;
+    }
+
+    this.config = config;
 
     window.addEventListener(
       'message',
@@ -123,7 +96,7 @@ class EditorJSInline implements InlineTool {
     const text: string = range.extractContents().textContent ?? '';
 
     range.insertNode(
-      EditorJSInline.createSpan({
+      this.createSpan({
         data: {
           blocks: [
             {
@@ -176,7 +149,7 @@ class EditorJSInline implements InlineTool {
             const data: OutputData = JSON.parse(
               span.dataset.editorjsInline ?? ''
             );
-            const newSpan = EditorJSInline.createSpan({ data });
+            const newSpan = this.createSpan({ data });
 
             span.parentNode?.insertBefore(newSpan, span);
             span.remove();
@@ -189,6 +162,49 @@ class EditorJSInline implements InlineTool {
     });
 
     return button;
+  }
+
+  private createSpan({ data }: { data: OutputData }) {
+    const id = uuidv4();
+    const span = document.createElement('span');
+
+    span.contentEditable = 'false';
+    span.dataset.editorjsInline = JSON.stringify(data);
+    span.dataset.editorjsInlineId = id;
+
+    const iframe = document.createElement('iframe');
+
+    iframe.scrolling = 'no';
+    iframe.style.border = 'none';
+    iframe.srcdoc = `
+      <!doctype html>
+      <html>
+        <head></head>
+        <body>
+          <script>${iframeWorker}</script>
+        </body>
+      </html>
+    `;
+
+    iframe.addEventListener('load', () => {
+      if (!iframe.contentWindow) {
+        throw new Error("Couldn't create iframe for editorjs-inline. ");
+      }
+
+      const iframeWorkerWindow = iframe.contentWindow as IframeWindow;
+
+      iframeWorkerWindow.editorJSInline.load({
+        id,
+        editorConfig: {
+          ...this.config.editorConfig,
+          data,
+        },
+      });
+    });
+
+    span.appendChild(iframe);
+
+    return span;
   }
 }
 

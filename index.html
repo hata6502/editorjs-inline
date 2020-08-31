@@ -26,11 +26,23 @@
         version: '2.18.0',
       };
 
+      const tools = {
+        list: List,
+      };
+
       const editorJS = new EditorJS({
         data,
         tools: {
-          editorJSInline: EditorJSInline,
-          list: List,
+          ...tools,
+          editorJSInline: {
+            class: EditorJSInline,
+            config: {
+              editorConfig: {
+                minHeight: 0,
+                tools,
+              },
+            },
+          },
         },
       });
 

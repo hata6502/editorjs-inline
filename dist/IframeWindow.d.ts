@@ -1,9 +1,9 @@
-import type { OutputData } from '@editorjs/editorjs';
+import type { EditorConfig } from '@editorjs/editorjs';
 interface IframeWindow extends Window {
     editorJSInline: {
         load: (arg: {
             id: string;
-            data: OutputData;
+            editorConfig: Omit<EditorConfig, 'holder'>;
         }) => void;
     };
 }

@@ -1,5 +1,6 @@
-import type { InlineTool, InlineToolConstructorOptions } from '@editorjs/editorjs';
+import type { EditorConfig, InlineTool, InlineToolConstructorOptions } from '@editorjs/editorjs';
 export interface EditorJSInlineConfig {
+    editorConfig: Omit<EditorConfig, 'data' | 'holder'>;
 }
 interface EditorJSInlineConstructorOptions extends InlineToolConstructorOptions {
     config: EditorJSInlineConfig | object;
@@ -12,12 +13,13 @@ declare class EditorJSInline implements InlineTool {
         };
     };
     static get title(): string;
-    private static createSpan;
     private api;
+    private config;
     constructor({ api, config }: EditorJSInlineConstructorOptions);
     get shortcut(): string;
     surround(range: Range): void;
     checkState(): boolean;
     render(): HTMLButtonElement;
+    private createSpan;
 }
 export default EditorJSInline;
