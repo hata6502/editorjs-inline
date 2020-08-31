@@ -2,7 +2,14 @@
   "name": "editorjs-inline",
   "version": "0.0.0",
   "description": "Inline-Editor.js Tool for Editor.js",
-  "keywords": [],
+  "keywords": [
+    "codex",
+    "editor",
+    "inline",
+    "tool",
+    "editor.js",
+    "editorjs"
+  ],
   "repository": "https://github.com/hata6502/editorjs-inline",
   "license": "MIT",
   "author": "hata6502",
