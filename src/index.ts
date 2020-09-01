@@ -186,14 +186,28 @@ class EditorJSInline implements InlineTool {
       <!doctype html>
       <html>
         <head>
+          ${styleHTML}
+
           <style>
             body {
               margin: 0 16px;
               padding: 0;
             }
-          </style>
 
-          ${styleHTML}
+            .ce-toolbox, .ce-inline-toolbar, .ce-conversion-toolbar {
+              display: none;
+            }
+
+            .ce-inline-toolbar--showed, .ce-conversion-toolbar--showed {
+              display: block;
+            }
+
+            .ce-toolbox--opened {
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+            }
+          </style>
         </head>
 
         <body>
