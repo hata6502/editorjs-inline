@@ -159,6 +159,17 @@ class EditorJSInline implements InlineTool {
       });
 
       mutationObserver.observe(codexEditor, { childList: true });
+
+      document.addEventListener('pointerdown', () => {
+        codexEditor
+          .querySelectorAll('span[data-editorjs-inline] iframe')
+          .forEach((element) => {
+            const iframe = element as HTMLIFrameElement;
+            const iframeWorkerWindow = iframe.contentWindow as IframeWindow;
+
+            iframeWorkerWindow.editorJSInline.closeToolbars();
+          });
+      });
     });
 
     return button;

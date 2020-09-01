@@ -5,9 +5,15 @@ import type { MutatedMessageData, SavedMessageData } from './MessageData';
 
 declare const window: IframeWindow;
 
+let editorJS: EditorJS;
+
 window.editorJSInline = {
+  closeToolbars: () => {
+    editorJS.inlineToolbar.close();
+    editorJS.toolbar.close();
+  },
   load: ({ id, editorConfig }) => {
-    const editorJS = new EditorJS({
+    editorJS = new EditorJS({
       ...editorConfig,
       holder: document.body,
       onChange: async (api) => {
