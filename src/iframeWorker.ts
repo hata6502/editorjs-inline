@@ -1,23 +1,17 @@
+import debounce from 'debounce';
 import EditorJS from '@editorjs/editorjs';
 import type IframeWindow from './IframeWindow';
-import type { HeightChangedMessageData, SavedMessageData } from './MessageData';
+import type { MutatedMessageData, SavedMessageData } from './MessageData';
 
 declare const window: IframeWindow;
 
 window.editorJSInline = {
   load: ({ id, editorConfig }) => {
-    const heightChangedMessageData: HeightChangedMessageData = {
-      editorJSInline: true,
-      id,
-      type: 'heightChanged',
-    };
-
     const editorJS = new EditorJS({
       ...editorConfig,
       holder: document.body,
       onChange: async (api) => {
         editorConfig.onChange?.(api);
-        window.parent.postMessage(heightChangedMessageData, '*');
 
         const outputData = await editorJS.save();
         const savedMessageData: SavedMessageData = {
@@ -29,10 +23,25 @@ window.editorJSInline = {
 
         window.parent.postMessage(savedMessageData, '*');
       },
-      onReady: () => {
-        editorConfig.onReady?.();
-        window.parent.postMessage(heightChangedMessageData, '*');
-      },
+    });
+
+    const mutationObserver = new MutationObserver(
+      debounce(() => {
+        const mutatedMessageData: MutatedMessageData = {
+          editorJSInline: true,
+          id,
+          type: 'mutated',
+        };
+
+        window.parent.postMessage(mutatedMessageData, '*');
+      })
+    );
+
+    mutationObserver.observe(document, {
+      childList: true,
+      attributes: true,
+      characterData: true,
+      subtree: true,
     });
   },
 };

@@ -74,7 +74,7 @@ class EditorJSInline implements InlineTool {
         const span = element as HTMLSpanElement;
 
         ({
-          heightChanged: () => {
+          mutated: () => {
             iframe.style.height = `${iframe.contentDocument?.body.scrollHeight}px`;
           },
           saved: () => {
