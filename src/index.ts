@@ -185,7 +185,17 @@ class EditorJSInline implements InlineTool {
     iframe.srcdoc = `
       <!doctype html>
       <html>
-        <head>${styleHTML}</head>
+        <head>
+          <style>
+            body {
+              margin: 0 16px;
+              padding: 0;
+            }
+          </style>
+
+          ${styleHTML}
+        </head>
+
         <body>
           <script>${iframeWorker}</script>
         </body>
