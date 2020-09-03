@@ -8,18 +8,16 @@ interface EditorJSInlineConstructorOptions extends InlineToolConstructorOptions 
 declare class EditorJSInline implements InlineTool {
     static get isInline(): boolean;
     static get sanitize(): {
-        span: {
-            'data-editorjs-inline': boolean;
-        };
+        span: boolean;
     };
     static get title(): string;
     private api;
     private config;
     constructor({ api, config }: EditorJSInlineConstructorOptions);
     get shortcut(): string;
-    surround(range: Range): void;
     checkState(): boolean;
     render(): HTMLButtonElement;
+    surround(range: Range): void;
     private createSpan;
 }
 export default EditorJSInline;

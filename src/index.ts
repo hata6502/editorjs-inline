@@ -28,9 +28,7 @@ class EditorJSInline implements InlineTool {
 
   static get sanitize() {
     return {
-      span: {
-        'data-editorjs-inline': true,
-      },
+      span: true,
     };
   }
 
@@ -90,25 +88,6 @@ class EditorJSInline implements InlineTool {
 
   get shortcut() {
     return 'CMD+E';
-  }
-
-  surround(range: Range) {
-    const text: string = range.extractContents().textContent ?? '';
-
-    range.insertNode(
-      this.createSpan({
-        data: {
-          blocks: [
-            {
-              type: 'paragraph',
-              data: {
-                text,
-              },
-            },
-          ],
-        },
-      })
-    );
   }
 
   checkState() {
@@ -175,13 +154,33 @@ class EditorJSInline implements InlineTool {
     return button;
   }
 
+  surround(range: Range) {
+    const text: string = range.extractContents().textContent ?? '';
+
+    range.insertNode(
+      this.createSpan({
+        data: {
+          blocks: [
+            {
+              type: 'paragraph',
+              data: {
+                text,
+              },
+            },
+          ],
+        },
+      })
+    );
+  }
+
   private createSpan({ data }: { data: OutputData }) {
     const id = uuidv4();
     const span = document.createElement('span');
 
-    span.contentEditable = 'false';
+    span.classList.add('editorjs-style');
     span.dataset.editorjsInline = JSON.stringify(data);
     span.dataset.editorjsInlineId = id;
+    span.style.display = 'inline-block';
 
     const iframe = document.createElement('iframe');
 

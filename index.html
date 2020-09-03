@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>editorjs-inline</title>
     <script src="dist/index.js"></script>
+    <script src="https://hata6502.github.io/editorjs-style/dist/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
   </head>
@@ -14,13 +15,34 @@
     <div id="output-data"></div>
     <script>
       const data = {
-        time: 1598789264099,
+        time: 1599151143199,
         blocks: [
           {
             type: 'paragraph',
             data: {
               text:
-                'test<span data-editorjs-inline="{&quot;time&quot;:1598789261485,&quot;blocks&quot;:[{&quot;type&quot;:&quot;list&quot;,&quot;data&quot;:{&quot;style&quot;:&quot;ordered&quot;,&quot;items&quot;:[&quot;editorjs-inline&quot;]}}],&quot;version&quot;:&quot;2.18.0&quot;}"></span>test',
+                '<span class="editorjs-style" data-editorjs-inline="{&quot;time&quot;:1598789261485,&quot;blocks&quot;:[{&quot;type&quot;:&quot;list&quot;,&quot;data&quot;:{&quot;style&quot;:&quot;ordered&quot;,&quot;items&quot;:[&quot;editorjs-inline&quot;]}}],&quot;version&quot;:&quot;2.18.0&quot;}" data-editorjs-inline-id="544b38d8-e35e-494f-8fc9-2bf1fcf56a41" style="display: inline-block;">simple <span class="editorjs-style" data-editorjs-inline="{&quot;time&quot;:1599151129654,&quot;blocks&quot;:[{&quot;type&quot;:&quot;list&quot;,&quot;data&quot;:{&quot;style&quot;:&quot;unordered&quot;,&quot;items&quot;:[&quot;editorjs-inline&quot;]}}],&quot;version&quot;:&quot;2.18.0&quot;}" data-editorjs-inline-id="f37b3c75-3416-4031-9052-5811f1c0fb32" style="display: inline-block;"></span>&nbsp;</span>test',
+            },
+          },
+          {
+            type: 'paragraph',
+            data: {
+              text:
+                '---------------------------------------------------------------------------------------------------------------------',
+            },
+          },
+          {
+            type: 'paragraph',
+            data: {
+              text:
+                'Combination with <a href="https://github.com/hata6502/editorjs-style">editorjs-style</a>',
+            },
+          },
+          {
+            type: 'paragraph',
+            data: {
+              text:
+                '<span class="editorjs-style" style="display: flex; justify-content: space-around;border: 1px solid #eeeeee;"><span class="editorjs-style" style="background: pink; margin: 0.5rem;"><span class="editorjs-style" data-editorjs-inline="{&quot;time&quot;:1599151045356,&quot;blocks&quot;:[{&quot;type&quot;:&quot;paragraph&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;Column 1&quot;}},{&quot;type&quot;:&quot;list&quot;,&quot;data&quot;:{&quot;style&quot;:&quot;ordered&quot;,&quot;items&quot;:[&quot;editorjs-inline&quot;]}}],&quot;version&quot;:&quot;2.18.0&quot;}" data-editorjs-inline-id="251f2002-0579-4128-b656-cd8be7f34e5a" style="display: inline-block;"></span></span><span class="editorjs-style" style="background: beige; margin: 0.5rem;"><span class="editorjs-style" data-editorjs-inline="{&quot;time&quot;:1599151050768,&quot;blocks&quot;:[{&quot;type&quot;:&quot;paragraph&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;Column 2&quot;}},{&quot;type&quot;:&quot;list&quot;,&quot;data&quot;:{&quot;style&quot;:&quot;ordered&quot;,&quot;items&quot;:[&quot;editorjs-style&quot;]}}],&quot;version&quot;:&quot;2.18.0&quot;}" data-editorjs-inline-id="20ac1215-1234-4f1a-bd38-c5c1751abf7b" style="display: inline-block;"></span></span></span>',
             },
           },
         ],
@@ -28,7 +50,11 @@
       };
 
       const tools = {
-        list: List,
+        editorJSStyle: EditorJSStyle,
+        list: {
+          class: List,
+          inlineToolbar: true,
+        },
       };
 
       const editorJS = new EditorJS({
