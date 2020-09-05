@@ -197,9 +197,17 @@ class EditorJSInline implements InlineTool {
     const span = document.createElement('span');
 
     span.classList.add('editorjs-style');
+    span.contentEditable = 'false';
     span.dataset.editorjsInline = JSON.stringify(data);
     span.dataset.editorjsInlineId = id;
     span.style.display = 'inline-block';
+
+    const dummyText = document.createElement('span');
+
+    dummyText.innerHTML = '&nbsp;';
+    dummyText.style.position = 'absolute';
+
+    span.appendChild(dummyText);
 
     const iframe = document.createElement('iframe');
 
