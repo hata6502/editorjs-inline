@@ -37,6 +37,7 @@ class EditorJSInline implements InlineTool {
   }
 
   private api: API;
+  private codexEditor!: Element;
   private config!: EditorJSInlineConfig;
 
   constructor({ api, config }: EditorJSInlineConstructorOptions) {
@@ -60,22 +61,37 @@ class EditorJSInline implements InlineTool {
           return;
         }
 
-        const element = document.querySelector(
+        const span = this.codexEditor.querySelector(
           `span[data-editorjs-inline-id="${messageData.id}"]`
-        );
-        const iframe = element?.querySelector('iframe');
+        ) as HTMLSpanElement | null;
 
-        if (!element || !iframe) {
-          throw new Error('editorjs-inline element is not found. ');
-        }
-
-        const span = element as HTMLSpanElement;
+        const iframe = span?.querySelector('iframe');
 
         ({
           mutated: () => {
+            if (!iframe) {
+              return;
+            }
+
             iframe.style.height = `${iframe.contentDocument?.body.scrollHeight}px`;
           },
+          pointerdown: () => {
+            this.codexEditor
+              .querySelectorAll(
+                `span[data-editorjs-inline]:not([data-editorjs-inline-id="${messageData.id}"]) iframe`
+              )
+              .forEach((element) => {
+                const iframe = element as HTMLIFrameElement;
+                const iframeWorkerWindow = iframe.contentWindow as IframeWindow;
+
+                iframeWorkerWindow.editorJSInline.closeToolbars();
+              });
+          },
           saved: () => {
+            if (!span) {
+              return;
+            }
+
             const { outputData } = messageData as SavedMessageData;
 
             span.dataset.editorjsInline = JSON.stringify(outputData);
@@ -113,15 +129,19 @@ class EditorJSInline implements InlineTool {
       const codexEditor = button.closest('.codex-editor');
 
       if (!codexEditor) {
-        throw new Error("Couldn't load editorjs-inline. ");
+        throw new Error(
+          "Couldn't find the parent Editor.js of editorjs-inline. "
+        );
       }
 
+      this.codexEditor = codexEditor;
+
       const mutationObserver = new MutationObserver(() => {
-        if (codexEditor.querySelector('.codex-editor__loader')) {
+        if (this.codexEditor.querySelector('.codex-editor__loader')) {
           return;
         }
 
-        codexEditor
+        this.codexEditor
           .querySelectorAll('span[data-editorjs-inline]')
           .forEach((element) => {
             const span = element as HTMLSpanElement;
@@ -137,10 +157,10 @@ class EditorJSInline implements InlineTool {
         mutationObserver.disconnect();
       });
 
-      mutationObserver.observe(codexEditor, { childList: true });
+      mutationObserver.observe(this.codexEditor, { childList: true });
 
       document.addEventListener('pointerdown', () => {
-        codexEditor
+        this.codexEditor
           .querySelectorAll('span[data-editorjs-inline] iframe')
           .forEach((element) => {
             const iframe = element as HTMLIFrameElement;

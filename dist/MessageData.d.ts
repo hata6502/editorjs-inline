@@ -6,9 +6,12 @@ interface EditorJSInlineMessageData {
 export interface MutatedMessageData extends EditorJSInlineMessageData {
     type: 'mutated';
 }
+export interface PointerdownMessageData extends EditorJSInlineMessageData {
+    type: 'pointerdown';
+}
 export interface SavedMessageData extends EditorJSInlineMessageData {
     type: 'saved';
     outputData: OutputData;
 }
-declare type MessageData = MutatedMessageData | SavedMessageData | object | undefined;
+declare type MessageData = MutatedMessageData | PointerdownMessageData | SavedMessageData | object | undefined;
 export default MessageData;

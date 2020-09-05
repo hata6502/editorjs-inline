@@ -1,7 +1,11 @@
 import debounce from 'debounce';
 import EditorJS from '@editorjs/editorjs';
 import type IframeWindow from './IframeWindow';
-import type { MutatedMessageData, SavedMessageData } from './MessageData';
+import type {
+  MutatedMessageData,
+  PointerdownMessageData,
+  SavedMessageData,
+} from './MessageData';
 
 declare const window: IframeWindow;
 
@@ -48,6 +52,16 @@ window.editorJSInline = {
       attributes: true,
       characterData: true,
       subtree: true,
+    });
+
+    document.addEventListener('pointerdown', () => {
+      const pointerdownMessageData: PointerdownMessageData = {
+        editorJSInline: true,
+        id,
+        type: 'pointerdown',
+      };
+
+      window.parent.postMessage(pointerdownMessageData, '*');
     });
   },
 };

@@ -9,11 +9,20 @@ export interface MutatedMessageData extends EditorJSInlineMessageData {
   type: 'mutated';
 }
 
+export interface PointerdownMessageData extends EditorJSInlineMessageData {
+  type: 'pointerdown';
+}
+
 export interface SavedMessageData extends EditorJSInlineMessageData {
   type: 'saved';
   outputData: OutputData;
 }
 
-type MessageData = MutatedMessageData | SavedMessageData | object | undefined;
+type MessageData =
+  | MutatedMessageData
+  | PointerdownMessageData
+  | SavedMessageData
+  | object
+  | undefined;
 
 export default MessageData;
