@@ -12,7 +12,6 @@ declare class EditorJSInline implements InlineTool {
     };
     static get title(): string;
     private api;
-    private codexEditor;
     private config;
     constructor({ api, config }: EditorJSInlineConstructorOptions);
     get shortcut(): string;

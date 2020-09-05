@@ -7,6 +7,7 @@ interface EditorJSInlineMessageData {
 
 export interface MutatedMessageData extends EditorJSInlineMessageData {
   type: 'mutated';
+  scrollHeight: number;
 }
 
 export interface PointerdownMessageData extends EditorJSInlineMessageData {

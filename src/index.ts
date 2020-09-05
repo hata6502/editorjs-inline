@@ -8,7 +8,7 @@ import type {
 import { v4 as uuidv4 } from 'uuid';
 import type IframeWindow from './IframeWindow';
 import type MessageData from './MessageData';
-import type { SavedMessageData } from './MessageData';
+import type { MutatedMessageData, SavedMessageData } from './MessageData';
 // @ts-ignore
 import iframeWorker from '../dist/iframeWorker.js';
 
@@ -37,7 +37,6 @@ class EditorJSInline implements InlineTool {
   }
 
   private api: API;
-  private codexEditor!: Element;
   private config!: EditorJSInlineConfig;
 
   constructor({ api, config }: EditorJSInlineConstructorOptions) {
@@ -48,58 +47,6 @@ class EditorJSInline implements InlineTool {
     }
 
     this.config = config;
-
-    window.addEventListener(
-      'message',
-      (event) => {
-        const messageData: MessageData = event.data;
-
-        if (
-          typeof messageData !== 'object' ||
-          !('editorJSInline' in messageData)
-        ) {
-          return;
-        }
-
-        const span = this.codexEditor.querySelector(
-          `span[data-editorjs-inline-id="${messageData.id}"]`
-        ) as HTMLSpanElement | null;
-
-        const iframe = span?.querySelector('iframe');
-
-        ({
-          mutated: () => {
-            if (!iframe) {
-              return;
-            }
-
-            iframe.style.height = `${iframe.contentDocument?.body.scrollHeight}px`;
-          },
-          pointerdown: () => {
-            this.codexEditor
-              .querySelectorAll(
-                `span[data-editorjs-inline]:not([data-editorjs-inline-id="${messageData.id}"]) iframe`
-              )
-              .forEach((element) => {
-                const iframe = element as HTMLIFrameElement;
-                const iframeWorkerWindow = iframe.contentWindow as IframeWindow;
-
-                iframeWorkerWindow.editorJSInline.closeToolbars();
-              });
-          },
-          saved: () => {
-            if (!span) {
-              return;
-            }
-
-            const { outputData } = messageData as SavedMessageData;
-
-            span.dataset.editorjsInline = JSON.stringify(outputData);
-          },
-        }[messageData.type]());
-      },
-      false
-    );
   }
 
   get shortcut() {
@@ -134,14 +81,12 @@ class EditorJSInline implements InlineTool {
         );
       }
 
-      this.codexEditor = codexEditor;
-
       const mutationObserver = new MutationObserver(() => {
-        if (this.codexEditor.querySelector('.codex-editor__loader')) {
+        if (codexEditor.querySelector('.codex-editor__loader')) {
           return;
         }
 
-        this.codexEditor
+        codexEditor
           .querySelectorAll('span[data-editorjs-inline]')
           .forEach((element) => {
             const span = element as HTMLSpanElement;
@@ -157,10 +102,10 @@ class EditorJSInline implements InlineTool {
         mutationObserver.disconnect();
       });
 
-      mutationObserver.observe(this.codexEditor, { childList: true });
+      mutationObserver.observe(codexEditor, { childList: true });
 
       document.addEventListener('pointerdown', () => {
-        this.codexEditor
+        codexEditor
           .querySelectorAll('span[data-editorjs-inline] iframe')
           .forEach((element) => {
             const iframe = element as HTMLIFrameElement;
@@ -169,6 +114,60 @@ class EditorJSInline implements InlineTool {
             iframeWorkerWindow.editorJSInline.closeToolbars();
           });
       });
+
+      window.addEventListener(
+        'message',
+        (event) => {
+          const messageData: MessageData = event.data;
+
+          if (
+            typeof messageData !== 'object' ||
+            !('editorJSInline' in messageData)
+          ) {
+            return;
+          }
+
+          const span = codexEditor.querySelector(
+            `span[data-editorjs-inline-id="${messageData.id}"]`
+          ) as HTMLSpanElement | null;
+
+          const iframe = span?.querySelector('iframe');
+
+          ({
+            mutated: () => {
+              if (!iframe) {
+                return;
+              }
+
+              const { scrollHeight } = messageData as MutatedMessageData;
+
+              iframe.style.height = `${scrollHeight}px`;
+            },
+            pointerdown: () => {
+              codexEditor
+                .querySelectorAll(
+                  `span[data-editorjs-inline]:not([data-editorjs-inline-id="${messageData.id}"]) iframe`
+                )
+                .forEach((element) => {
+                  const iframe = element as HTMLIFrameElement;
+                  const iframeWorkerWindow = iframe.contentWindow as IframeWindow;
+
+                  iframeWorkerWindow.editorJSInline.closeToolbars();
+                });
+            },
+            saved: () => {
+              if (!span) {
+                return;
+              }
+
+              const { outputData } = messageData as SavedMessageData;
+
+              span.dataset.editorjsInline = JSON.stringify(outputData);
+            },
+          }[messageData.type]());
+        },
+        false
+      );
     });
 
     return button;

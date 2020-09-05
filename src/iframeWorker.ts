@@ -17,9 +17,13 @@ window.editorJSInline = {
     editorJS.toolbar.close();
   },
   load: ({ id, editorConfig }) => {
+    const holder = document.createElement('div');
+
+    document.body.appendChild(holder);
+
     editorJS = new EditorJS({
       ...editorConfig,
-      holder: document.body,
+      holder,
       onChange: async (api) => {
         editorConfig.onChange?.(api);
 
@@ -41,13 +45,19 @@ window.editorJSInline = {
           editorJSInline: true,
           id,
           type: 'mutated',
+          scrollHeight: document.body.scrollHeight,
         };
 
         window.parent.postMessage(mutatedMessageData, '*');
+
+        const marginLeft =
+          document.body.scrollWidth - document.body.offsetWidth;
+
+        document.body.style.marginLeft = `${-marginLeft}px`;
       })
     );
 
-    mutationObserver.observe(document, {
+    mutationObserver.observe(holder, {
       childList: true,
       attributes: true,
       characterData: true,
