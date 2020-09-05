@@ -41,6 +41,27 @@ window.editorJSInline = {
 
     const mutationObserver = new MutationObserver(
       debounce(() => {
+        const lefts: number[] = [];
+        const tops: number[] = [];
+
+        document.body.querySelectorAll('*').forEach((element) => {
+          const rect = element.getBoundingClientRect();
+
+          lefts.push(rect.left);
+          tops.push(rect.top);
+        });
+
+        const minLeft = Math.min(0, ...lefts);
+
+        document.body.style.marginLeft = `${-minLeft}px`;
+        document.body.style.marginTop = `${-Math.min(0, ...tops)}px`;
+
+        if (minLeft >= 0) {
+          document.body.style.marginLeft = `${
+            document.body.offsetWidth - document.body.scrollWidth
+          }px`;
+        }
+
         const mutatedMessageData: MutatedMessageData = {
           editorJSInline: true,
           id,
@@ -49,11 +70,6 @@ window.editorJSInline = {
         };
 
         window.parent.postMessage(mutatedMessageData, '*');
-
-        const marginLeft =
-          document.body.scrollWidth - document.body.offsetWidth;
-
-        document.body.style.marginLeft = `${-marginLeft}px`;
       })
     );
 
