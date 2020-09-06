@@ -74,9 +74,9 @@ window.editorJSInline = {
     );
 
     mutationObserver.observe(holder, {
-      childList: true,
       attributes: true,
       characterData: true,
+      childList: true,
       subtree: true,
     });
 

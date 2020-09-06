@@ -95,8 +95,7 @@ class EditorJSInline implements InlineTool {
             );
             const newSpan = this.createSpan({ data });
 
-            span.parentNode?.insertBefore(newSpan, span);
-            span.remove();
+            span.parentNode?.replaceChild(newSpan, span);
           });
 
         mutationObserver.disconnect();
