@@ -196,18 +196,12 @@ class EditorJSInline implements InlineTool {
     const id = uuidv4();
     const span = document.createElement('span');
 
-    span.classList.add('editorjs-style');
     span.contentEditable = 'false';
     span.dataset.editorjsInline = JSON.stringify(data);
     span.dataset.editorjsInlineId = id;
     span.style.display = 'inline-block';
 
-    const dummyText = document.createElement('span');
-
-    dummyText.innerHTML = '&nbsp;';
-    dummyText.style.position = 'absolute';
-
-    span.appendChild(dummyText);
+    span.append(document.createTextNode('\u200b'));
 
     const iframe = document.createElement('iframe');
 
@@ -269,7 +263,7 @@ class EditorJSInline implements InlineTool {
       });
     });
 
-    span.appendChild(iframe);
+    span.append(iframe);
 
     return span;
   }
