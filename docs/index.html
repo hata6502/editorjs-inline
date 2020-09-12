@@ -3,10 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <title>editorjs-inline</title>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-inline@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-style@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-inline@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-style@latest"></script>
   </head>
 
   <body>
@@ -49,10 +50,21 @@
         version: '2.18.0',
       };
 
+      // To prevent breaking nested editorjs-style
+      class ParagraphForEditorJSStyle extends Paragraph {
+        static get enableLineBreaks() {
+          return true;
+        }
+      }
+
       const tools = {
         editorJSStyle: EditorJSStyle,
         list: {
           class: List,
+          inlineToolbar: true,
+        },
+        paragraph: {
+          class: ParagraphForEditorJSStyle,
           inlineToolbar: true,
         },
       };

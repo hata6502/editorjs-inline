@@ -200,7 +200,7 @@ class EditorJSInline implements InlineTool {
     span.dataset.editorjsInlineId = id;
     span.style.display = 'inline-block';
 
-    span.append(document.createTextNode('\u200b'));
+    span.append('\u200b');
 
     const iframe = document.createElement('iframe');
 
