@@ -163,7 +163,8 @@ class EditorJSInline implements InlineTool {
 
               span.dataset.editorjsInline = JSON.stringify(outputData);
             },
-          }[messageData.type]());
+            // https://lgtm.com/rules/1506750237676/
+          }[messageData.type]?.());
         },
         false
       );
