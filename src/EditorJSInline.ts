@@ -115,7 +115,7 @@ class EditorJSInline implements InlineTool {
 
           const iframe = editorJSInline?.querySelector('iframe');
 
-          ({
+          const action = {
             mutated: () => {
               if (!iframe) {
                 return;
@@ -146,8 +146,10 @@ class EditorJSInline implements InlineTool {
 
               editorJSInline.dataset.output = JSON.stringify(outputData);
             },
-            // https://lgtm.com/rules/1506750237676/
-          }[messageData.type]?.());
+          }[messageData.type];
+
+          // https://lgtm.com/rules/1506750237676/
+          typeof action === 'function' && action();
         },
         false
       );
