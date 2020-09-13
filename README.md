@@ -33,8 +33,34 @@ Editor.js can be used like a HTML editor.
 
 ## Install
 
+### Install via yarn
+
 ```sh
 yarn add editorjs-inline
+```
+
+### Load from CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/editorjs-inline@latest"></script>
+```
+
+## Usage
+
+Please see [Demo HTML](https://github.com/hata6502/editorjs-inline/blob/master/docs/index.html).
+
+## Config params
+
+Please see [EditorJSInlineConfig](https://github.com/hata6502/editorjs-inline/blob/master/src/EditorJSInline.ts).
+
+## Output data
+
+Please see [Demo](https://hata6502.github.io/editorjs-inline/).
+
+## Build
+
+```sh
+yarn webpack-iframe-worker && yarn webpack-index
 ```
 
 ## Run tests
