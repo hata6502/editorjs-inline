@@ -3,17 +3,17 @@ import type {
   EditorConfig,
   InlineTool,
   InlineToolConstructorOptions,
-  OutputData,
 } from '@editorjs/editorjs';
-import { v4 as uuidv4 } from 'uuid';
+import EditorJSInlineElement from './EditorJSInlineElement';
+import type EditorJSInlineWindow from './EditorJSInlineWindow';
 import type IframeWindow from './IframeWindow';
 import type MessageData from './MessageData';
 import type { MutatedMessageData, SavedMessageData } from './MessageData';
-// @ts-ignore
-import iframeWorker from '../dist/iframeWorker.js';
+
+declare const window: EditorJSInlineWindow;
 
 interface EditorJSInlineConfig {
-  editorConfig: Omit<EditorConfig, 'data' | 'holder'>;
+  editorConfig: Omit<EditorConfig, 'holder'>;
 }
 
 interface EditorJSInlineConstructorOptions
@@ -28,7 +28,7 @@ class EditorJSInline implements InlineTool {
 
   static get sanitize() {
     return {
-      span: true,
+      'editorjs-inline': true,
     };
   }
 
@@ -37,7 +37,6 @@ class EditorJSInline implements InlineTool {
   }
 
   private api: API;
-  private config!: EditorJSInlineConfig;
 
   constructor({ api, config }: EditorJSInlineConstructorOptions) {
     this.api = api;
@@ -46,7 +45,13 @@ class EditorJSInline implements InlineTool {
       return;
     }
 
-    this.config = config;
+    window.editorJSInlineConfig = config;
+
+    if (customElements.get('editorjs-inline')) {
+      return;
+    }
+
+    customElements.define('editorjs-inline', EditorJSInlineElement);
   }
 
   get shortcut() {
@@ -81,31 +86,9 @@ class EditorJSInline implements InlineTool {
         );
       }
 
-      const mutationObserver = new MutationObserver(() => {
-        if (codexEditor.querySelector('.codex-editor__loader')) {
-          return;
-        }
-
-        codexEditor
-          .querySelectorAll('span[data-editorjs-inline]')
-          .forEach((element) => {
-            const span = element as HTMLSpanElement;
-            const data: OutputData = JSON.parse(
-              span.dataset.editorjsInline ?? ''
-            );
-            const newSpan = this.createSpan({ data });
-
-            span.parentNode?.replaceChild(newSpan, span);
-          });
-
-        mutationObserver.disconnect();
-      });
-
-      mutationObserver.observe(codexEditor, { childList: true });
-
       document.addEventListener('pointerdown', () => {
         codexEditor
-          .querySelectorAll('span[data-editorjs-inline] iframe')
+          .querySelectorAll('editorjs-inline iframe')
           .forEach((element) => {
             const iframe = element as HTMLIFrameElement;
             const iframeWorkerWindow = iframe.contentWindow as IframeWindow;
@@ -126,11 +109,11 @@ class EditorJSInline implements InlineTool {
             return;
           }
 
-          const span = codexEditor.querySelector(
-            `span[data-editorjs-inline-id="${messageData.id}"]`
-          ) as HTMLSpanElement | null;
+          const editorJSInline = codexEditor.querySelector(
+            `editorjs-inline[data-id="${messageData.id}"]`
+          ) as EditorJSInlineElement | null;
 
-          const iframe = span?.querySelector('iframe');
+          const iframe = editorJSInline?.querySelector('iframe');
 
           ({
             mutated: () => {
@@ -145,7 +128,7 @@ class EditorJSInline implements InlineTool {
             pointerdown: () => {
               codexEditor
                 .querySelectorAll(
-                  `span[data-editorjs-inline]:not([data-editorjs-inline-id="${messageData.id}"]) iframe`
+                  `editorjs-inline:not([data-id="${messageData.id}"]) iframe`
                 )
                 .forEach((element) => {
                   const iframe = element as HTMLIFrameElement;
@@ -155,13 +138,13 @@ class EditorJSInline implements InlineTool {
                 });
             },
             saved: () => {
-              if (!span) {
+              if (!editorJSInline) {
                 return;
               }
 
               const { outputData } = messageData as SavedMessageData;
 
-              span.dataset.editorjsInline = JSON.stringify(outputData);
+              editorJSInline.dataset.output = JSON.stringify(outputData);
             },
             // https://lgtm.com/rules/1506750237676/
           }[messageData.type]?.());
@@ -174,99 +157,21 @@ class EditorJSInline implements InlineTool {
   }
 
   surround(range: Range) {
+    const editorJSInline = new EditorJSInlineElement();
     const text: string = range.extractContents().textContent ?? '';
 
-    range.insertNode(
-      this.createSpan({
-        data: {
-          blocks: [
-            {
-              type: 'paragraph',
-              data: {
-                text,
-              },
-            },
-          ],
+    editorJSInline.dataset.output = JSON.stringify({
+      blocks: [
+        {
+          type: 'paragraph',
+          data: {
+            text,
+          },
         },
-      })
-    );
-  }
-
-  private createSpan({ data }: { data: OutputData }) {
-    const id = uuidv4();
-    const span = document.createElement('span');
-
-    span.contentEditable = 'false';
-    span.dataset.editorjsInline = JSON.stringify(data);
-    span.dataset.editorjsInlineId = id;
-    span.style.display = 'inline-block';
-
-    span.append('\u200b');
-
-    const iframe = document.createElement('iframe');
-
-    iframe.scrolling = 'no';
-    iframe.style.border = 'none';
-    iframe.style.width = '100%';
-    iframe.title = 'editorjs-inline';
-
-    const styleHTML = Array.from(document.querySelectorAll('style'))
-      .map((style) => style.outerHTML)
-      .join('');
-
-    iframe.srcdoc = `
-      <!doctype html>
-      <html>
-        <head>
-          ${styleHTML}
-
-          <style>
-            body {
-              margin: 0 16px;
-              padding: 0;
-            }
-
-            .ce-toolbox, .ce-inline-toolbar, .ce-conversion-toolbar {
-              display: none;
-            }
-
-            .ce-inline-toolbar--showed, .ce-conversion-toolbar--showed {
-              display: block;
-            }
-
-            .ce-toolbox--opened {
-              display: -webkit-box;
-              display: -ms-flexbox;
-              display: flex;
-            }
-          </style>
-        </head>
-
-        <body>
-          <script>${iframeWorker}</script>
-        </body>
-      </html>
-    `;
-
-    iframe.addEventListener('load', () => {
-      if (!iframe.contentWindow) {
-        throw new Error("Couldn't create iframe for editorjs-inline. ");
-      }
-
-      const iframeWorkerWindow = iframe.contentWindow as IframeWindow;
-
-      iframeWorkerWindow.editorJSInline.load({
-        id,
-        editorConfig: {
-          ...this.config.editorConfig,
-          data,
-        },
-      });
+      ],
     });
 
-    span.append(iframe);
-
-    return span;
+    range.insertNode(editorJSInline);
   }
 }
 

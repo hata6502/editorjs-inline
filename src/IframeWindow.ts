@@ -1,11 +1,11 @@
-import type { EditorConfig } from '@editorjs/editorjs';
+import type { EditorJSInlineConfig } from './EditorJSInline';
 
 interface IframeWindow extends Window {
   editorJSInline: {
     closeToolbars: () => void;
     load: (arg: {
       id: string;
-      editorConfig: Omit<EditorConfig, 'holder'>;
+      editorConfig: EditorJSInlineConfig['editorConfig'];
     }) => void;
   };
 }
