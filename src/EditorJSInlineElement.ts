@@ -29,11 +29,8 @@ class EditorJSInlineElement extends HTMLElement {
   connectedCallback() {
     const id = uuidv4();
 
-    this.contentEditable = 'false';
     this.dataset.id = id;
     this.style.display = 'inline-block';
-
-    this.#shadow.append('\u200b');
 
     this.#iframe = document.createElement('iframe');
 
