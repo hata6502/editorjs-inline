@@ -6,7 +6,6 @@ import type {
 } from '@editorjs/editorjs';
 import EditorJSInlineElement from './EditorJSInlineElement';
 import type EditorJSInlineWindow from './EditorJSInlineWindow';
-import type IframeWindow from './IframeWindow';
 import type MessageData from './MessageData';
 import type { MutatedMessageData, SavedMessageData } from './MessageData';
 
@@ -88,13 +87,10 @@ class EditorJSInline implements InlineTool {
 
       document.addEventListener('pointerdown', () => {
         codexEditor
-          .querySelectorAll('editorjs-inline iframe')
-          .forEach((element) => {
-            const iframe = element as HTMLIFrameElement;
-            const iframeWorkerWindow = iframe.contentWindow as IframeWindow;
-
-            iframeWorkerWindow.editorJSInline.closeToolbars();
-          });
+          .querySelectorAll('editorjs-inline')
+          .forEach((element) =>
+            (element as EditorJSInlineElement).closeToolbars()
+          );
       });
 
       window.addEventListener(
@@ -113,29 +109,24 @@ class EditorJSInline implements InlineTool {
             `editorjs-inline[data-id="${messageData.id}"]`
           ) as EditorJSInlineElement | null;
 
-          const iframe = editorJSInline?.querySelector('iframe');
-
           const action = {
             mutated: () => {
-              if (!iframe) {
+              if (!editorJSInline) {
                 return;
               }
 
               const { scrollHeight } = messageData as MutatedMessageData;
 
-              iframe.style.height = `${scrollHeight}px`;
+              editorJSInline.setHeight({ height: `${scrollHeight}px` });
             },
             pointerdown: () => {
               codexEditor
                 .querySelectorAll(
-                  `editorjs-inline:not([data-id="${messageData.id}"]) iframe`
+                  `editorjs-inline:not([data-id="${messageData.id}"])`
                 )
-                .forEach((element) => {
-                  const iframe = element as HTMLIFrameElement;
-                  const iframeWorkerWindow = iframe.contentWindow as IframeWindow;
-
-                  iframeWorkerWindow.editorJSInline.closeToolbars();
-                });
+                .forEach((element) =>
+                  (element as EditorJSInlineElement).closeToolbars()
+                );
             },
             saved: () => {
               if (!editorJSInline) {

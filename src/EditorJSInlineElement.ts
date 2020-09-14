@@ -7,6 +7,25 @@ import iframeWorker from '../dist/iframeWorker.js';
 declare const window: EditorJSInlineWindow;
 
 class EditorJSInlineElement extends HTMLElement {
+  #iframe?: HTMLIFrameElement;
+  #shadow: ShadowRoot;
+
+  constructor() {
+    super();
+
+    this.#shadow = this.attachShadow({ mode: 'open' });
+  }
+
+  closeToolbars() {
+    if (!this.#iframe?.contentWindow) {
+      throw new Error("Couldn't close toolbars of editorjs-inline. ");
+    }
+
+    const iframeWorkerWindow = this.#iframe.contentWindow as IframeWindow;
+
+    iframeWorkerWindow.editorJSInline.closeToolbars();
+  }
+
   connectedCallback() {
     const id = uuidv4();
 
@@ -14,20 +33,20 @@ class EditorJSInlineElement extends HTMLElement {
     this.dataset.id = id;
     this.style.display = 'inline-block';
 
-    this.append('\u200b');
+    this.#shadow.append('\u200b');
 
-    const iframe = document.createElement('iframe');
+    this.#iframe = document.createElement('iframe');
 
-    iframe.scrolling = 'no';
-    iframe.style.border = 'none';
-    iframe.style.width = '100%';
-    iframe.title = 'editorjs-inline';
+    this.#iframe.scrolling = 'no';
+    this.#iframe.style.border = 'none';
+    this.#iframe.style.width = '100%';
+    this.#iframe.title = 'editorjs-inline';
 
     const styleHTML = Array.from(document.querySelectorAll('style'))
       .map((style) => style.outerHTML)
       .join('');
 
-    iframe.srcdoc = `
+    this.#iframe.srcdoc = `
       <!doctype html>
       <html>
         <head>
@@ -61,12 +80,12 @@ class EditorJSInlineElement extends HTMLElement {
       </html>
     `;
 
-    iframe.addEventListener('load', () => {
-      if (!iframe.contentWindow) {
+    this.#iframe.addEventListener('load', () => {
+      if (!this.#iframe?.contentWindow) {
         throw new Error("Couldn't create iframe for editorjs-inline. ");
       }
 
-      const iframeWorkerWindow = iframe.contentWindow as IframeWindow;
+      const iframeWorkerWindow = this.#iframe.contentWindow as IframeWindow;
 
       iframeWorkerWindow.editorJSInline.load({
         id,
@@ -77,11 +96,19 @@ class EditorJSInlineElement extends HTMLElement {
       });
     });
 
-    this.append(iframe);
+    this.#shadow.append(this.#iframe);
   }
 
   disconnectedCallback() {
-    this.innerHTML = '';
+    this.#shadow.innerHTML = '';
+  }
+
+  setHeight({ height }: { height: string }) {
+    if (!this.#iframe) {
+      throw new Error("Couldn't set height of editorjs-inline. ");
+    }
+
+    this.#iframe.style.height = height;
   }
 }
 
