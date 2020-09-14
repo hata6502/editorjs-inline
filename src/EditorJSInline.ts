@@ -3,6 +3,7 @@ import type {
   EditorConfig,
   InlineTool,
   InlineToolConstructorOptions,
+  OutputData,
 } from '@editorjs/editorjs';
 import EditorJSInlineElement from './EditorJSInlineElement';
 import type EditorJSInlineWindow from './EditorJSInlineWindow';
@@ -27,7 +28,17 @@ class EditorJSInline implements InlineTool {
 
   static get sanitize() {
     return {
-      'editorjs-inline': true,
+      'editorjs-inline': (editorjsInline: EditorJSInlineElement) => {
+        const outputData: OutputData | undefined =
+          editorjsInline.dataset.output &&
+          JSON.parse(editorjsInline.dataset.output);
+
+        return !outputData || outputData.blocks.length === 0
+          ? false
+          : {
+              'data-output': true,
+            };
+      },
     };
   }
 
