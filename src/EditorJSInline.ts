@@ -46,10 +46,10 @@ class EditorJSInline implements InlineTool {
     return 'EditorJS';
   }
 
-  private api: API;
+  #api: API;
 
   constructor({ api, config }: EditorJSInlineConstructorOptions) {
-    this.api = api;
+    this.#api = api;
 
     if (!('editorConfig' in config)) {
       return;
@@ -75,7 +75,7 @@ class EditorJSInline implements InlineTool {
   render() {
     const button = document.createElement('button');
 
-    button.classList.add(this.api.styles.inlineToolButton);
+    button.classList.add(this.#api.styles.inlineToolButton);
     button.type = 'button';
     button.innerHTML = `
       <svg class="icon" viewBox="0 0 14 14">
