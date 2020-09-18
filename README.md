@@ -26,7 +26,8 @@ so they may be able to provide only simple functions.
 By launching another Editor.js instance as inline element,
 existing block tools can be reused as inline tool.
 
-By using with [editorjs-style](https://github.com/hata6502/editorjs-style),
+By using with [editorjs-style](https://github.com/hata6502/editorjs-style)
+and [editorjs-inspector](https://github.com/hata6502/editorjs-inspector),
 Editor.js can be used like a HTML editor.
 
 ### ✨ [Demo](https://hata6502.github.io/editorjs-inline/)
