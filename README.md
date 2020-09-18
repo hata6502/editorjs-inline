@@ -31,6 +31,8 @@ Editor.js can be used like a HTML editor.
 
 ### ✨ [Demo](https://hata6502.github.io/editorjs-inline/)
 
+![Demo](https://user-images.githubusercontent.com/7702653/93618045-bf5aac00-fa11-11ea-8a5e-959b56a497fb.gif)
+
 ## Install
 
 ### Install via yarn
