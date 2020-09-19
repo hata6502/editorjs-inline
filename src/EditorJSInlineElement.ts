@@ -14,7 +14,16 @@ class EditorJSInlineElement extends HTMLElement {
   constructor() {
     super();
 
-    this.#shadow = this.attachShadow({ mode: 'open' });
+    this.contentEditable = 'false';
+    this.innerHTML = '';
+
+    // To display inline toolbar.
+    this.append('\u200b');
+
+    const span = document.createElement('span');
+
+    this.#shadow = span.attachShadow({ mode: 'open' });
+    this.append(span);
   }
 
   closeToolbars() {
