@@ -149,10 +149,7 @@ class EditorJSInline implements InlineTool {
             },
           }[messageData.type];
 
-          // https://lgtm.com/rules/1506750237676/
-          if (typeof action === 'function') {
-            action();
-          }
+          typeof action === 'function' && action(); // lgtm [js/unvalidated-dynamic-method-call]
         },
         false
       );
