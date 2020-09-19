@@ -1,5 +1,6 @@
 import type IframeWindow from './IframeWindow';
 import { v4 as uuidv4 } from 'uuid';
+import EditorJSInlineError from './EditorJSInlineError';
 import type EditorJSInlineWindow from './EditorJSInlineWindow';
 // @ts-ignore
 import iframeWorker from '../dist/iframeWorker.js';
@@ -18,7 +19,7 @@ class EditorJSInlineElement extends HTMLElement {
 
   closeToolbars() {
     if (!this.#iframe?.contentWindow) {
-      throw new Error("Couldn't close toolbars of editorjs-inline. ");
+      throw new EditorJSInlineError();
     }
 
     const iframeWorkerWindow = this.#iframe.contentWindow as IframeWindow;
@@ -79,7 +80,7 @@ class EditorJSInlineElement extends HTMLElement {
 
     this.#iframe.addEventListener('load', () => {
       if (!this.#iframe?.contentWindow) {
-        throw new Error("Couldn't create iframe for editorjs-inline. ");
+        throw new EditorJSInlineError();
       }
 
       const iframeWorkerWindow = this.#iframe.contentWindow as IframeWindow;
@@ -102,7 +103,7 @@ class EditorJSInlineElement extends HTMLElement {
 
   setHeight({ height }: { height: string }) {
     if (!this.#iframe) {
-      throw new Error("Couldn't set height of editorjs-inline. ");
+      throw new EditorJSInlineError();
     }
 
     this.#iframe.style.height = height;

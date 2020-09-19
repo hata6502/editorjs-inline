@@ -6,6 +6,7 @@ import type {
   OutputData,
 } from '@editorjs/editorjs';
 import EditorJSInlineElement from './EditorJSInlineElement';
+import EditorJSInlineError from './EditorJSInlineError';
 import type EditorJSInlineWindow from './EditorJSInlineWindow';
 import type MessageData from './MessageData';
 import type { MutatedMessageData, SavedMessageData } from './MessageData';
@@ -91,9 +92,7 @@ class EditorJSInline implements InlineTool {
       const codexEditor = button.closest('.codex-editor');
 
       if (!codexEditor) {
-        throw new Error(
-          "Couldn't find the parent Editor.js of editorjs-inline. "
-        );
+        throw new EditorJSInlineError();
       }
 
       document.addEventListener('pointerdown', () => {
