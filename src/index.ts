@@ -12,7 +12,7 @@ import type {
   MessageData,
   MutatedMessageData,
   SavedMessageData,
-} from './editorJSElement';
+} from 'editorjs-element';
 
 declare const window: EditorJSInlineWindow;
 
