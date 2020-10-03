@@ -52,6 +52,10 @@ yarn add editorjs-inline
 
 Please see [Demo HTML](https://github.com/hata6502/editorjs-inline/blob/master/docs/index.html).
 
+## Config params
+
+Please see [EditorJSInlineConfig](https://github.com/hata6502/editorjs-inline/blob/master/src/index.ts).
+
 ## Output data
 
 Please see [Demo](https://hata6502.github.io/editorjs-inline/).

@@ -51,31 +51,25 @@
         }
       }
 
-      const tools = {
-        editorJSInspector: EditorJSInspector,
-        editorJSStyle: EditorJSStyle,
-        list: {
-          class: List,
-          inlineToolbar: true,
-        },
-        paragraph: {
-          class: ParagraphForEditorJSStyle,
-          inlineToolbar: true,
-        },
-      };
-
       const editorJS = new EditorJS({
         data,
         tools: {
-          ...tools,
           editorJSInline: {
             class: EditorJSInline,
             config: {
-              editorConfig: {
-                minHeight: 0,
-                tools,
-              },
+              // https://github.com/hata6502/editorjs-element/blob/main/dist/index.html
+              src: 'element.html',
             },
+          },
+          editorJSInspector: EditorJSInspector,
+          editorJSStyle: EditorJSStyle,
+          list: {
+            class: List,
+            inlineToolbar: true,
+          },
+          paragraph: {
+            class: ParagraphForEditorJSStyle,
+            inlineToolbar: true,
           },
         },
       });

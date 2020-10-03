@@ -1,7 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import EditorJSInlineError from './EditorJSInlineError';
+import type EditorJSInlineWindow from './EditorJSInlineWindow';
 import type { EditorJSElementWindow } from './editorJSElement';
-import element from './editorJSElement/index.html';
+
+declare const window: EditorJSInlineWindow;
 
 class EditorJSInlineElement extends HTMLElement {
   #iframe?: HTMLIFrameElement;
@@ -41,10 +43,17 @@ class EditorJSInlineElement extends HTMLElement {
     this.#iframe = document.createElement('iframe');
 
     this.#iframe.scrolling = 'no';
-    this.#iframe.srcdoc = element;
     this.#iframe.style.border = 'none';
     this.#iframe.style.width = '100%';
     this.#iframe.title = 'editorjs-inline';
+
+    if (window.editorJSInlineConfig?.src) {
+      this.#iframe.src = window.editorJSInlineConfig.src;
+    }
+
+    if (window.editorJSInlineConfig?.srcdoc) {
+      this.#iframe.srcdoc = window.editorJSInlineConfig.srcdoc;
+    }
 
     this.#iframe.addEventListener('load', () => {
       if (!this.#iframe?.contentWindow) {

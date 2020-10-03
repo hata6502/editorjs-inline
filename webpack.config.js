@@ -3,10 +3,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.html$/,
-        use: 'raw-loader',
-      },
-      {
         test: /\.tsx?$/,
         loader: 'ts-loader',
       },

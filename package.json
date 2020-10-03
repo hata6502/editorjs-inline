@@ -24,12 +24,9 @@
   },
   "devDependencies": {
     "@editorjs/editorjs": "^2.18.0",
-    "@types/debounce": "^1.2.0",
     "@types/uuid": "^8.3.0",
-    "debounce": "^1.2.0",
     "license-checker": "^25.0.1",
     "prettier": "^2.0.5",
-    "raw-loader": "^4.0.1",
     "semantic-release": "^17.1.1",
     "ts-loader": "^8.0.3",
     "typescript": "^4.0.2",
