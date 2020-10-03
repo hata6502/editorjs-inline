@@ -64,6 +64,10 @@ class EditorJSInlineElement extends HTMLElement {
 
       elementWindow.editorJSElement.load({
         id,
+        editorConfig: {
+          ...window.editorJSInlineConfig?.editorConfig,
+          ...(this.dataset.output && { data: JSON.parse(this.dataset.output) }),
+        },
       });
     });
 

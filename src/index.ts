@@ -1,5 +1,6 @@
 import type {
   API,
+  EditorConfig,
   InlineTool,
   InlineToolConstructorOptions,
   OutputData,
@@ -16,6 +17,8 @@ import type {
 declare const window: EditorJSInlineWindow;
 
 interface EditorJSInlineConfig {
+  editorConfig: Omit<EditorConfig, 'data' | 'holder'>;
+
   /**
    * The URL of editorjs-element output
    * https://github.com/hata6502/editorjs-element/blob/main/dist/index.html
@@ -64,7 +67,7 @@ class EditorJSInline implements InlineTool {
   constructor({ api, config }: EditorJSInlineConstructorOptions) {
     this.#api = api;
 
-    if (!('src' in config) && !('srcdoc' in config)) {
+    if (!('editorConfig' in config)) {
       return;
     }
 
