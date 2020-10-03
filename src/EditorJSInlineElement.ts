@@ -1,11 +1,7 @@
-import type IframeWindow from './IframeWindow';
 import { v4 as uuidv4 } from 'uuid';
 import EditorJSInlineError from './EditorJSInlineError';
-import type EditorJSInlineWindow from './EditorJSInlineWindow';
-// @ts-ignore
-import iframeWorker from '../dist/iframeWorker.js';
-
-declare const window: EditorJSInlineWindow;
+import type { EditorJSElementWindow } from './editorJSElement';
+import element from './editorJSElement/index.html';
 
 class EditorJSInlineElement extends HTMLElement {
   #iframe?: HTMLIFrameElement;
@@ -31,9 +27,9 @@ class EditorJSInlineElement extends HTMLElement {
       throw new EditorJSInlineError();
     }
 
-    const iframeWorkerWindow = this.#iframe.contentWindow as IframeWindow;
+    const elementWindow = this.#iframe.contentWindow as EditorJSElementWindow;
 
-    iframeWorkerWindow.editorJSInline.closeToolbars();
+    elementWindow.editorJSElement.closeToolbars();
   }
 
   connectedCallback() {
@@ -45,61 +41,20 @@ class EditorJSInlineElement extends HTMLElement {
     this.#iframe = document.createElement('iframe');
 
     this.#iframe.scrolling = 'no';
+    this.#iframe.srcdoc = element;
     this.#iframe.style.border = 'none';
     this.#iframe.style.width = '100%';
     this.#iframe.title = 'editorjs-inline';
-
-    const styleHTML = Array.from(document.querySelectorAll('style'))
-      .map((style) => style.outerHTML)
-      .join('');
-
-    this.#iframe.srcdoc = `
-      <!doctype html>
-      <html>
-        <head>
-          ${styleHTML}
-
-          <style>
-            body {
-              margin: 0 16px;
-              padding: 0;
-            }
-
-            .ce-toolbox, .ce-inline-toolbar, .ce-conversion-toolbar {
-              display: none;
-            }
-
-            .ce-inline-toolbar--showed, .ce-conversion-toolbar--showed {
-              display: block;
-            }
-
-            .ce-toolbox--opened {
-              display: -webkit-box;
-              display: -ms-flexbox;
-              display: flex;
-            }
-          </style>
-        </head>
-
-        <body>
-          <script>${iframeWorker}</script>
-        </body>
-      </html>
-    `;
 
     this.#iframe.addEventListener('load', () => {
       if (!this.#iframe?.contentWindow) {
         throw new EditorJSInlineError();
       }
 
-      const iframeWorkerWindow = this.#iframe.contentWindow as IframeWindow;
+      const elementWindow = this.#iframe.contentWindow as EditorJSElementWindow;
 
-      iframeWorkerWindow.editorJSInline.load({
+      elementWindow.editorJSElement.load({
         id,
-        editorConfig: {
-          ...window.editorJSInlineConfig?.editorConfig,
-          ...(this.dataset.output && { data: JSON.parse(this.dataset.output) }),
-        },
       });
     });
 

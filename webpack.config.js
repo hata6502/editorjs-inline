@@ -3,7 +3,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /iframeWorker\.js$/,
+        test: /\.html$/,
         use: 'raw-loader',
       },
       {

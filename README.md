@@ -52,10 +52,6 @@ yarn add editorjs-inline
 
 Please see [Demo HTML](https://github.com/hata6502/editorjs-inline/blob/master/docs/index.html).
 
-## Config params
-
-Please see [EditorJSInlineConfig](https://github.com/hata6502/editorjs-inline/blob/master/src/EditorJSInline.ts).
-
 ## Output data
 
 Please see [Demo](https://hata6502.github.io/editorjs-inline/).
@@ -63,7 +59,7 @@ Please see [Demo](https://hata6502.github.io/editorjs-inline/).
 ## Build
 
 ```sh
-yarn webpack-iframe-worker && yarn webpack-index
+yarn webpack
 ```
 
 ## Run tests

@@ -1,26 +1,16 @@
 import type {
   API,
-  EditorConfig,
   InlineTool,
   InlineToolConstructorOptions,
   OutputData,
 } from '@editorjs/editorjs';
 import EditorJSInlineElement from './EditorJSInlineElement';
 import EditorJSInlineError from './EditorJSInlineError';
-import type EditorJSInlineWindow from './EditorJSInlineWindow';
-import type MessageData from './MessageData';
-import type { MutatedMessageData, SavedMessageData } from './MessageData';
-
-declare const window: EditorJSInlineWindow;
-
-interface EditorJSInlineConfig {
-  editorConfig: Omit<EditorConfig, 'holder'>;
-}
-
-interface EditorJSInlineConstructorOptions
-  extends InlineToolConstructorOptions {
-  config: EditorJSInlineConfig | object;
-}
+import type {
+  MessageData,
+  MutatedMessageData,
+  SavedMessageData,
+} from './editorJSElement';
 
 class EditorJSInline implements InlineTool {
   static get isInline() {
@@ -49,14 +39,8 @@ class EditorJSInline implements InlineTool {
 
   #api: API;
 
-  constructor({ api, config }: EditorJSInlineConstructorOptions) {
+  constructor({ api }: InlineToolConstructorOptions) {
     this.#api = api;
-
-    if (!('editorConfig' in config)) {
-      return;
-    }
-
-    window.editorJSInlineConfig = config;
 
     if (customElements.get('editorjs-inline')) {
       return;
@@ -110,7 +94,7 @@ class EditorJSInline implements InlineTool {
 
           if (
             typeof messageData !== 'object' ||
-            !('editorJSInline' in messageData)
+            !('editorJSElement' in messageData)
           ) {
             return;
           }
@@ -178,4 +162,3 @@ class EditorJSInline implements InlineTool {
 }
 
 export default EditorJSInline;
-export type { EditorJSInlineConfig };
