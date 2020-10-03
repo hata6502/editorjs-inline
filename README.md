@@ -1,3 +1,4 @@
+<!-- markdownlint-disable first-line-h1 -->
 <h1 align="center">Welcome to editorjs-inline 👋</h1>
 <p>
   <a href="https://www.npmjs.com/package/editorjs-inline" target="_blank">
@@ -76,7 +77,7 @@ yarn test
 
 <img alt="hata6502" src="https://avatars.githubusercontent.com/hata6502" width="48" /> **hata6502**
 
-- Website: https://b-hood.site/
+- Website: <https://b-hood.site/>
 - Twitter: [@hata6502](https://twitter.com/hata6502)
 - Github: [@hata6502](https://github.com/hata6502)
 
