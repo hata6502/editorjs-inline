@@ -1,4 +1,4 @@
-import type { EditorJSInlineConfig } from './EditorJSInline';
+import type { EditorJSInlineConfig } from '.';
 
 interface EditorJSInlineWindow extends Window {
   editorJSInlineConfig?: EditorJSInlineConfig;

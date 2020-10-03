@@ -20,17 +20,14 @@
     "license-checker": "license-checker --excludePackages 'css-select@1.2.0;dictionary-en@3.0.0;domutils@1.5.1;optimist@0.6.1;tiny-segmenter@0.2.0;trim@0.0.1;union@0.5.0;unorm@1.6.0;zlibjs@0.2.0' --excludePrivatePackages --onlyAllow 'Apache-2.0;BSD;BSD-2-Clause;BSD-3-Clause;CC0-1.0;CC-BY-3.0;CC-BY-4.0;ISC;MIT;Public Domain;Unlicense;WTFPL' --production --unknown > /dev/null",
     "semantic-release": "semantic-release",
     "test": "prettier --check . && tsc --noEmit",
-    "webpack-iframe-worker": "webpack --config webpack.iframeWorker.js",
-    "webpack-index": "webpack --config webpack.index.js"
+    "webpack": "webpack"
   },
   "devDependencies": {
     "@editorjs/editorjs": "^2.18.0",
-    "@types/debounce": "^1.2.0",
     "@types/uuid": "^8.3.0",
-    "debounce": "^1.2.0",
+    "editorjs-element": "^1.0.0",
     "license-checker": "^25.0.1",
     "prettier": "^2.0.5",
-    "raw-loader": "^4.0.1",
     "semantic-release": "^17.1.1",
     "ts-loader": "^8.0.3",
     "typescript": "^4.0.2",
