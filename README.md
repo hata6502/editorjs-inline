@@ -61,6 +61,11 @@ Please see [EditorJSInlineConfig](https://github.com/hata6502/editorjs-inline/bl
 
 Please see [Demo](https://hata6502.github.io/editorjs-inline/).
 
+## Customize Editor.js
+
+Inline Editor.js can be customized by building [editorjs-element](https://github.com/hata6502/editorjs-element) yourself.
+Please see [usage](https://github.com/hata6502/editorjs-element#usage).
+
 ## Build
 
 ```sh
