@@ -164,9 +164,7 @@ class EditorJSInline implements InlineTool {
             },
           };
 
-          action.hasOwnProperty(messageData.type) &&
-            typeof action[messageData.type] === 'function' &&
-            action[messageData.type]();
+          action.hasOwnProperty(messageData.type) && action[messageData.type]();
         },
         false
       );
