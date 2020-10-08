@@ -162,9 +162,11 @@ class EditorJSInline implements InlineTool {
 
               editorJSInline.dataset.output = JSON.stringify(outputData);
             },
-          }[messageData.type];
+          };
 
-          typeof action === 'function' && action(); // lgtm [js/unvalidated-dynamic-method-call]
+          action.hasOwnProperty(messageData.type) &&
+            typeof action[messageData.type] === 'function' &&
+            action[messageData.type]();
         },
         false
       );
