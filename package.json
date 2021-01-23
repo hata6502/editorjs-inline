@@ -13,7 +13,7 @@
   "repository": "https://github.com/hata6502/editorjs-inline",
   "license": "MIT",
   "author": "Tomoyuki Hata <hato6502@gmail.com>",
-  "main": "dist/index.js",
+  "main": "dist/main.js",
   "scripts": {
     "fix": "prettier --write .",
     "generate-disclaimer": "yarn licenses generate-disclaimer --ignore-platform > DISCLAIMER.md",

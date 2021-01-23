@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import EditorJSInlineError from './EditorJSInlineError';
+import {EditorJSInlineError} from './EditorJSInlineError';
 
 class EditorJSInlineElement extends HTMLElement {
   #iframe?: HTMLIFrameElement;
@@ -83,4 +83,4 @@ class EditorJSInlineElement extends HTMLElement {
   }
 }
 
-export default EditorJSInlineElement;
+export {EditorJSInlineElement};
