@@ -12,71 +12,39 @@
     <div id="output-data"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-inline@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-inspector@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-style@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
+
+    <!-- For demo -->
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-inline@latest"></script>
+    <!-- For development -->
+    <!--<script src="../dist/main.js"></script>-->
 
     <script>
       const data = {
-        time: 1599151143199,
         blocks: [
           {
             type: 'paragraph',
             data: {
               text:
-                'test <editorjs-inline data-output="{&quot;time&quot;:1600005148689,&quot;blocks&quot;:[{&quot;type&quot;:&quot;paragraph&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;editorjs-inline&quot;}}],&quot;version&quot;:&quot;2.18.0&quot;}" contenteditable="false" data-id="1ad8a496-c745-453a-93e0-9ced4626c6d2" style="display: inline-block;">​</editorjs-inline> test',
-            },
-          },
-          {
-            type: 'paragraph',
-            data: {
-              text:
-                'Combination with <a href="https://github.com/hata6502/editorjs-style">editorjs-style</a>',
-            },
-          },
-          {
-            type: 'paragraph',
-            data: {
-              text:
-                '<editorjs-style style="border: 1px solid black;\ndisplay: flex;\njustify-content: space-around;">​​<editorjs-style style="background-color: pink;\nwidth: 300px;">​<editorjs-inline data-output="{&quot;time&quot;:1600005360964,&quot;blocks&quot;:[{&quot;type&quot;:&quot;paragraph&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;Column 1&quot;}}],&quot;version&quot;:&quot;2.18.0&quot;}" contenteditable="false" data-id="3e38439b-31d7-4cbd-a61f-f3339db78b8f" style="display: inline-block;">​</editorjs-inline>​</editorjs-style><editorjs-style style="background-color: beige;\nwidth: 200px;">​<editorjs-inline data-output="{&quot;time&quot;:1600005364749,&quot;blocks&quot;:[{&quot;type&quot;:&quot;paragraph&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;Column 2&quot;}}],&quot;version&quot;:&quot;2.18.0&quot;}" contenteditable="false" data-id="00808cb6-fbb0-4eed-9dbc-727fa68056fe" style="display: inline-block;">​</editorjs-inline>​</editorjs-style>​</editorjs-style>',
+                'test&nbsp;<editorjs-style style="background: pink;\ndisplay: inline-block;"><editorjs-inline data-editorjs="{&quot;blocks&quot;:[{&quot;type&quot;:&quot;paragraph&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;editorjs-inline&quot;}}]}">editorjs-inline</editorjs-inline></editorjs-style>&nbsp;test',
             },
           },
         ],
-        version: '2.18.0',
       };
-
-      // To prevent breaking nested editorjs-style
-      class ParagraphForEditorJSStyle extends Paragraph {
-        static get enableLineBreaks() {
-          return true;
-        }
-      }
 
       const editorJS = new EditorJS({
         data,
         tools: {
           editorJSInline: {
-            class: EditorJSInline,
+            class: EditorJSInline.EditorJSInlineTool,
             config: {
+              EditorJS,
               editorConfig: {
                 minHeight: 0,
               },
-              // https://github.com/hata6502/editorjs-element/blob/main/dist/index.html
-              src: 'element.html',
             },
           },
-          editorJSInspector: EditorJSInspector,
           editorJSStyle: EditorJSStyle,
-          list: {
-            class: List,
-            inlineToolbar: true,
-          },
-          paragraph: {
-            class: ParagraphForEditorJSStyle,
-            inlineToolbar: true,
-          },
         },
       });
 

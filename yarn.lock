@@ -23,10 +23,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@editorjs/editorjs@^2.18.0":
-  version "2.18.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.18.0.tgz#bde42183013f5ca98693e77986cc9d8b2c9a1244"
-  integrity sha512-9OKs580JFKoXCAw7llb19E+qxY6QuzgDBq50cKbyOS1Lt+BglTq/zBdXxmRWNRTlCMxjTB1vgnq70+OjEyDSlw==
+"@editorjs/editorjs@^2.19.1":
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.19.1.tgz#081daf80dc4f524d457e415f07eb73d0ca6d86ce"
+  integrity sha512-5lN7r5B2NCE8VJdsS3poX3Qg9rNwzpxZ+6Jjif3hAVZTYpQwg5wXEpAHFNbuavS0T5Ji+0ID31DQFotVI4PosA==
   dependencies:
     codex-notifier "^1.1.2"
     codex-tooltip "^1.0.1"
@@ -1762,11 +1762,6 @@ editor@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/editor/-/editor-1.0.0.tgz#60c7f87bd62bcc6a894fa8ccd6afb7823a24f742"
   integrity sha1-YMf4e9YrzGqJT6jM1q+3gjok90I=
-
-editorjs-element@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/editorjs-element/-/editorjs-element-1.0.0.tgz#08e2b71f620d218b73c67c901d89dbe48eda5bb5"
-  integrity sha512-v37UJ0dgFQtQikf/yLOZbNH2hIXUgmqCN6mEYT8jk8LOHE/oj7RHGoyul7y8h0SAqzSw9ZLBlxyhDWzqWj3LBQ==
 
 elliptic@^6.5.3:
   version "6.5.3"

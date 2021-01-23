@@ -5,6 +5,9 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+        },
       },
     ],
   },
@@ -13,9 +16,7 @@ module.exports = {
   },
   entry: './src/index.ts',
   output: {
-    filename: 'index.js',
     library: 'EditorJSInline',
-    libraryExport: 'default',
     libraryTarget: 'umd',
   },
 };
