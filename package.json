@@ -22,8 +22,10 @@
     "test": "yarn check-license && prettier --check . && tsc --noEmit",
     "webpack": "webpack"
   },
+  "dependencies": {
+    "@editorjs/editorjs": "^2.19.1"
+  },
   "devDependencies": {
-    "@editorjs/editorjs": "^2.19.1",
     "@types/uuid": "^8.3.0",
     "license-checker": "^25.0.1",
     "prettier": "^2.0.5",
