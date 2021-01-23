@@ -22,7 +22,13 @@
     <script>
       const data = {
         blocks: [
-          // TODO: implement
+          {
+            type: 'paragraph',
+            data: {
+              text:
+                '<editorjs-style style="background-color: pink; display: inline-block;"><editorjs-inline data-editorjs="{&quot;blocks&quot;:[{&quot;type&quot;:&quot;paragraph&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;editorjs-inline&quot;}}]}"></editorjs-inline></editorjs-style>',
+            },
+          },
         ],
       };
 
@@ -32,6 +38,7 @@
           editorJSInline: {
             class: EditorJSInline.EditorJSInlineTool,
             config: {
+              EditorJS,
               editorConfig: {
                 minHeight: 0,
               },

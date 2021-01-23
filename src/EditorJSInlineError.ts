@@ -10,4 +10,4 @@ class EditorJSInlineError extends Error {
   }
 }
 
-export {EditorJSInlineError};
+export { EditorJSInlineError };
