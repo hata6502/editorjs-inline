@@ -13,10 +13,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-inline@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-inspector@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-style@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
 
     <script>
       const data = {
@@ -47,13 +44,6 @@
         version: '2.18.0',
       };
 
-      // To prevent breaking nested editorjs-style
-      class ParagraphForEditorJSStyle extends Paragraph {
-        static get enableLineBreaks() {
-          return true;
-        }
-      }
-
       const editorJS = new EditorJS({
         data,
         tools: {
@@ -67,16 +57,7 @@
               src: 'element.html',
             },
           },
-          editorJSInspector: EditorJSInspector,
           editorJSStyle: EditorJSStyle,
-          list: {
-            class: List,
-            inlineToolbar: true,
-          },
-          paragraph: {
-            class: ParagraphForEditorJSStyle,
-            inlineToolbar: true,
-          },
         },
       });
 

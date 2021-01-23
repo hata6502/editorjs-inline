@@ -1,9 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 import EditorJSInlineError from './EditorJSInlineError';
-import type EditorJSInlineWindow from './EditorJSInlineWindow';
-import type { EditorJSElementWindow } from 'editorjs-element';
-
-declare const window: EditorJSInlineWindow;
 
 class EditorJSInlineElement extends HTMLElement {
   #iframe?: HTMLIFrameElement;
