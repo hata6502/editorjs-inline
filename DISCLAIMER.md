@@ -423,7 +423,7 @@ SOFTWARE.
 
 -----
 
-The following software may be included in this product: @types/color-name, @types/debounce, @types/normalize-package-data, @types/parse-json, @types/retry. A copy of the source code may be downloaded from https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/color-name), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/debounce), https://www.github.com/DefinitelyTyped/DefinitelyTyped.git (@types/normalize-package-data), https://www.github.com/DefinitelyTyped/DefinitelyTyped.git (@types/parse-json), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/retry). This software contains the following license and notice below:
+The following software may be included in this product: @types/color-name, @types/normalize-package-data, @types/parse-json, @types/retry. A copy of the source code may be downloaded from https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/color-name), https://www.github.com/DefinitelyTyped/DefinitelyTyped.git (@types/normalize-package-data), https://www.github.com/DefinitelyTyped/DefinitelyTyped.git (@types/parse-json), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/retry). This software contains the following license and notice below:
 
 MIT License
 
@@ -449,7 +449,7 @@ MIT License
 
 -----
 
-The following software may be included in this product: @types/json-schema, @types/node, @types/uuid. A copy of the source code may be downloaded from https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/json-schema), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/node), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/uuid). This software contains the following license and notice below:
+The following software may be included in this product: @types/node, @types/uuid. A copy of the source code may be downloaded from https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/node), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/uuid). This software contains the following license and notice below:
 
 MIT License
 
@@ -4673,7 +4673,7 @@ SOFTWARE.
 
 -----
 
-The following software may be included in this product: enhanced-resolve, loader-utils, memory-fs, raw-loader, schema-utils, terser-webpack-plugin, watchpack, webpack. A copy of the source code may be downloaded from git://github.com/webpack/enhanced-resolve.git (enhanced-resolve), https://github.com/webpack/loader-utils.git (loader-utils), https://github.com/webpack/memory-fs.git (memory-fs), https://github.com/webpack-contrib/raw-loader.git (raw-loader), https://github.com/webpack-contrib/schema-utils (schema-utils), https://github.com/webpack-contrib/terser-webpack-plugin.git (terser-webpack-plugin), https://github.com/webpack/watchpack.git (watchpack), https://github.com/webpack/webpack.git (webpack). This software contains the following license and notice below:
+The following software may be included in this product: enhanced-resolve, loader-utils, memory-fs, schema-utils, terser-webpack-plugin, watchpack, webpack. A copy of the source code may be downloaded from git://github.com/webpack/enhanced-resolve.git (enhanced-resolve), https://github.com/webpack/loader-utils.git (loader-utils), https://github.com/webpack/memory-fs.git (memory-fs), https://github.com/webpack-contrib/schema-utils (schema-utils), https://github.com/webpack-contrib/terser-webpack-plugin.git (terser-webpack-plugin), https://github.com/webpack/watchpack.git (watchpack), https://github.com/webpack/webpack.git (webpack). This software contains the following license and notice below:
 
 Copyright JS Foundation and other contributors
 
@@ -6208,7 +6208,7 @@ THE SOFTWARE.
 
 -----
 
-The following software may be included in this product: is-regex. A copy of the source code may be downloaded from git://github.com/ljharb/is-regex.git. This software contains the following license and notice below:
+The following software may be included in this product: is-negative-zero, is-regex. A copy of the source code may be downloaded from git://github.com/ljharb/is-negative-zero.git (is-negative-zero), git://github.com/ljharb/is-regex.git (is-regex). This software contains the following license and notice below:
 
 The MIT License (MIT)
 
@@ -6335,7 +6335,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 The following software may be included in this product: json-parse-even-better-errors. A copy of the source code may be downloaded from https://github.com/npm/json-parse-even-better-errors. This software contains the following license and notice below:
 
 Copyright 2017 Kat Marchán
-Copyright npm, Inc. and Contributors
+Copyright npm, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
@@ -10282,6 +10282,22 @@ Redistribution and use in source and binary forms, with or without modification,
 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-----
+
+The following software may be included in this product: uri-js. A copy of the source code may be downloaded from http://github.com/garycourt/uri-js. This software contains the following license and notice below:
+
+Copyright 2011 Gary Court. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1.	Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2.	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY GARY COURT "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GARY COURT OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The views and conclusions contained in the software and documentation are those of the authors and should not be interpreted as representing official policies, either expressed or implied, of Gary Court.
 
 -----
 
