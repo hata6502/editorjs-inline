@@ -47,7 +47,7 @@ Please see [Demo HTML](https://github.com/hata6502/editorjs-inline/blob/master/d
 
 ## Config params
 
-Please see [EditorJSInlineConfig](https://github.com/hata6502/editorjs-inline/blob/master/src/index.ts).
+Please see [EditorJSInlineToolConfig](https://github.com/hata6502/editorjs-inline/blob/master/src/window.ts).
 
 ## Output data
 
