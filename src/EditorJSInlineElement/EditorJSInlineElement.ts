@@ -21,6 +21,9 @@ class EditorJSInlineElement extends HTMLElement {
   }
 
   connectedCallback() {
+    // To paste editorjs-inline correctly.
+    this.innerHTML = '';
+
     const editorJSHolderID = uuidv4();
 
     this.#editorJSHolder = document.createElement('div');
