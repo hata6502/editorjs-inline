@@ -35,7 +35,7 @@
       const editorJS = new EditorJS({
         data,
         tools: {
-          editorJSInline: {
+          editorJS: {
             class: EditorJSInline.EditorJSInlineTool,
             config: {
               EditorJS,
@@ -44,7 +44,7 @@
               },
             },
           },
-          editorJSStyle: EditorJSStyle,
+          style: EditorJSStyle.StyleInlineTool,
         },
       });
 
