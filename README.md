@@ -53,10 +53,21 @@ Please see [EditorJSInlineToolConfig](https://github.com/hata6502/editorjs-inlin
 
 Please see [Demo](https://hata6502.github.io/editorjs-inline/).
 
+## &lt;dialog&gt; polyfill
+
+editorjs-layout uses `<dialog>` element.
+[GoogleChrome/dialog-polyfill](https://github.com/GoogleChrome/dialog-polyfill) can be used to improve the browser compatibility.
+
 ## Build
 
 ```sh
 yarn webpack
+```
+
+## Format
+
+```sh
+yarn fix
 ```
 
 ## Run tests
