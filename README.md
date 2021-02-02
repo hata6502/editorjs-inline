@@ -21,7 +21,7 @@ so they may be able to provide only simple functions.
 By launching another Editor.js instance as inline element,
 existing block tools can be reused as inline tool.
 
-I recommend to use it with [editorjs-style](https://github.com/hata6502/editorjs-style).
+I recommend to use it with [editorjs-inline-template](https://github.com/hata6502/editorjs-inline-template) and [editorjs-style](https://github.com/hata6502/editorjs-style).
 
 ### ✨ [Demo](https://hata6502.github.io/editorjs-inline/)
 
@@ -106,7 +106,11 @@ This project is [MIT](https://github.com/hata6502/editorjs-inline/blob/master/LI
 
 ## Disclaimer
 
-Please see [DISCLAIMER.md](https://github.com/hata6502/editorjs-inline/blob/master/DISCLAIMER.md).
+The following creations are included in this product:
+
+- [ionic-team/ionicons](https://github.com/ionic-team/ionicons/blob/master/LICENSE)
+
+Please see also [DISCLAIMER.md](https://github.com/hata6502/editorjs-inline/blob/master/DISCLAIMER.md).
 
 ---
 
