@@ -19,6 +19,7 @@
     <div id="output-data"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-inline-template@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-style@latest"></script>
 
     <!-- For demo -->
@@ -52,6 +53,18 @@
             },
           },
           style: EditorJSStyle.StyleInlineTool,
+          template: {
+            class: EditorJSInlineTemplate.TemplateInlineTool,
+            config: {
+              html: `
+                <editorjs-style style="border: 1px solid #cccccc; display: inline-block">
+                  <editorjs-inline
+                    data-editorjs='{"blocks":[{"type":"paragraph","data":{"text":"template"}}]}'
+                  />
+                </editorjs-style>
+              `,
+            },
+          },
         },
       });
 
