@@ -23,6 +23,8 @@ existing block tools can be reused as inline tool.
 
 I recommend to use it with [editorjs-inline-template](https://github.com/hata6502/editorjs-inline-template) and [editorjs-style](https://github.com/hata6502/editorjs-style).
 
+Alternative solution: [editorjs-layout](https://github.com/hata6502/editorjs-layout)
+
 ### ✨ [Demo](https://hata6502.github.io/editorjs-inline/)
 
 ![demo](https://user-images.githubusercontent.com/7702653/105579110-cc284b80-5dc7-11eb-939f-d8864b129ed8.gif)
