@@ -73,6 +73,7 @@ class EditorJSInlineElement extends HTMLElement {
     });
 
     document.body.append(dialog);
+    // @ts-expect-error
     dialog.showModal();
   };
 }

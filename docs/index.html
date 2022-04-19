@@ -25,8 +25,7 @@
           {
             type: 'paragraph',
             data: {
-              text:
-                'test&nbsp;<editorjs-style style="background: pink;\ndisplay: inline-block;"><editorjs-inline data-editorjs="{&quot;blocks&quot;:[{&quot;type&quot;:&quot;paragraph&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;editorjs-inline&quot;}}]}">editorjs-inline</editorjs-inline></editorjs-style>&nbsp;test',
+              text: 'test&nbsp;<editorjs-style style="background: pink;\ndisplay: inline-block;"><editorjs-inline data-editorjs="{&quot;blocks&quot;:[{&quot;type&quot;:&quot;paragraph&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;editorjs-inline&quot;}}]}">editorjs-inline</editorjs-inline></editorjs-style>&nbsp;test',
             },
           },
         ],
@@ -63,9 +62,8 @@
       document.querySelector('#button').addEventListener('click', async () => {
         const outputData = await editorJS.save();
 
-        document.querySelector('#output-data').textContent = JSON.stringify(
-          outputData
-        );
+        document.querySelector('#output-data').textContent =
+          JSON.stringify(outputData);
       });
     </script>
   </body>
