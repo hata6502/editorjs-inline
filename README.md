@@ -55,22 +55,6 @@ Please see [EditorJSInlineToolConfig](https://github.com/hata6502/editorjs-inlin
 
 Please see [Demo](https://hata6502.github.io/editorjs-inline/).
 
-## &lt;dialog&gt; polyfill
-
-editorjs-inline uses `<dialog>` element and [GoogleChrome/dialog-polyfill](https://github.com/GoogleChrome/dialog-polyfill).
-Please load `dialog-polyfill.css` in your document.
-
-```html
-<head>
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/dialog-polyfill@0.5.6/dist/dialog-polyfill.css"
-    integrity="sha256-hT0ET4tfm+7MyjeBepBgV2N5tOmsAVKcTWhH82jvoaA="
-    crossorigin="anonymous"
-  />
-</head>
-```
-
 ## Build
 
 ```sh

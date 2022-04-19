@@ -1,5 +1,4 @@
 import type { OutputData } from '@editorjs/editorjs';
-import dialogPolyfill from 'dialog-polyfill';
 import { v4 as uuidv4 } from 'uuid';
 import type { EditorJSInlineWindow } from '../window';
 
@@ -13,8 +12,6 @@ const createDialog = ({
   onClose?: (event: { editorJSData: OutputData }) => void;
 }) => {
   const dialog = document.createElement('dialog');
-
-  dialogPolyfill.registerDialog(dialog);
 
   dialog.style.maxWidth = '960px';
   // Make be not able to click inner
